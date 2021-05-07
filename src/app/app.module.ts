@@ -19,7 +19,6 @@ import { MatchPasswordDirective } from './_directives/match-password.directive';
 
 import { ToastrModule } from 'ngx-toastr';
 
-import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 
@@ -39,7 +38,6 @@ import { VerifyEmailComponent } from './components/verify-email/verify-email.com
     VerifyEmailComponent,
   ],
   imports: [
-    CommonModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,

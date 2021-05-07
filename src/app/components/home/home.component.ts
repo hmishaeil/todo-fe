@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { validate, validateOrReject } from 'class-validator';
+import { validateOrReject } from 'class-validator';
 import { ToastrService } from 'ngx-toastr';
 import { SignUpRequest } from 'src/app/_requests/signup.request';
 import { AuthService } from 'src/app/_services/auth.service';
-import * as _ from 'lodash';
-import { Router } from '@angular/router';
-
+import _ from "lodash-es";
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -33,12 +31,6 @@ export class HomeComponent implements OnInit {
     req.email = this.email;
     req.username = this.email;
     req.password = this.password;
-
-    validateOrReject(req).catch(errors => {
-      errors.forEach(err => {
-        this.toastr.error(_.values(err.constraints));
-      });
-    });
 
     this.authService.signUp(req).subscribe(
       res => {
