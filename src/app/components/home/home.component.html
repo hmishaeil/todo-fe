@@ -1,0 +1,46 @@
+<div class="row mt-5">
+    <div class="col-3 m-auto" *ngIf="!userCreated">
+        <div class="text-center">
+            <h5>Welcome</h5>
+            <p>Sign Up to keep track of your todo list</p>
+        </div>
+        <br>
+        <form #signUpForm="ngForm" (ngSubmit)="onSignUp()" [appMatchPassword]="['password', 'confirmPassword']">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    placeholder="Enter email" [(ngModel)]="email" #emailInput="ngModel" name="email" required email>
+            </div>
+            <ul *ngIf="!emailInput.valid && emailInput.touched" class="text-danger">
+                <li *ngIf="emailInput.errors.required">Email field is required.</li>
+                <li *ngIf="emailInput.errors.email">Email format is required.</li>
+            </ul>
+            <br>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" id="passwordInput" placeholder="Password" required
+                    [(ngModel)]="password" #passwordInput="ngModel" name="password">
+            </div>
+            <ul *ngIf="!passwordInput.valid && passwordInput.touched" class="text-danger">
+                <li>Password is required.</li>
+            </ul>
+            <br>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Confirm Password</label>
+                <input type="password" class="form-control" id="confirmPasswordInput" placeholder="Confirm Password"
+                    required [(ngModel)]="confirmPassword" #confirmPasswordInput="ngModel" name="confirmPassword">
+            </div>
+            <ul *ngIf="!confirmPasswordInput.valid && confirmPasswordInput.touched" class="text-danger">
+                <li *ngIf="confirmPasswordInput.errors.required">Password confirmation field is required.</li>
+                <li *ngIf="confirmPasswordInput.errors.passwordMismatch">Passwords do not match.</li>
+            </ul>
+            <br>
+            <button type="submit" class="btn btn-primary" [disabled]="signUpForm.form.invalid">Sign Up</button>
+        </form>
+    </div>
+    <div class="col-6 m-auto" *ngIf="userCreated">
+        <div class="text-center">
+            <app-verify-email [email]="email"></app-verify-email>
+        </div>
+    </div>
+</div>

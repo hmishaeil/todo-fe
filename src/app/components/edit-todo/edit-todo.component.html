@@ -1,0 +1,29 @@
+<div class="row">
+    <div class="col-6  m-auto">
+        <h3>{{username}}</h3>
+        <form (ngSubmit)="onSubmit()" #todoForm="ngForm">
+            <div class="form-group mt-3">
+                <label for="todoDescription">Description</label>
+                <input type="text" class="form-control" id="todoDescription" placeholder="Enter the description"
+                    [(ngModel)]="todo.description" name="description" #description="ngModel" required>
+                <ul *ngIf="!description.valid && description.touched" class="text-danger">
+                    <li>Field is required</li>
+                </ul>
+            </div>
+            <div class="form-check mt-3">
+                <input type="checkbox" class="form-check-input" id="todoDone" [(ngModel)]="todo.done" name="todoDone">
+                <label class="form-check-label" for="todoDone">Mark as done</label>
+            </div>
+            <div class="form-group mt-3">
+                <label for="todoDeadline">Deadline</label>
+                <input type="date" class="form-control" id="todoDeadline" placeholder="Enter the deadline"
+                    [ngModel]="todo.deadline | date:'yyyy-MM-dd'" (ngModelChange)="todo.deadline=$event" name="todoDate"
+                    #todoDate="ngModel" required>
+                <ul *ngIf="!todoDate.valid && todoDate.touched" class="text-danger">
+                    <li>Field is required</li>
+                </ul>
+            </div>
+            <button type="submit" [disabled]="!todoForm.form.valid" class="btn btn-primary mt-3">Update</button>
+        </form>
+    </div>
+</div>
