@@ -4,6 +4,7 @@
         "modules",
         "ngx",
         "node",
+        "titlecase",
         "toastr"
     ]
 }

@@ -13,16 +13,16 @@
             <a class="nav-link" routerLink="/">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="todo-list" *ngIf="authService.isUserLoggedIn()">ToDo List</a>
+            <a class="nav-link" routerLink="todos" *ngIf="authService.loggedIn()">ToDo List</a>
           </li>
         </ul>
       </div>
       <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active" *ngIf="!authService.isUserLoggedIn()">
+          <li class="nav-item active" *ngIf="!authService.loggedIn()">
             <a class="nav-link" routerLink="/login">Login</a>
           </li>
-          <li class="nav-item" *ngIf="authService.isUserLoggedIn()">
+          <li class="nav-item" *ngIf="authService.loggedIn()">
             <a class="nav-link" routerLink="/login" (click)="onLogout()">Logout</a>
           </li>
         </ul>

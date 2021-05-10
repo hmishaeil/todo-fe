@@ -6,8 +6,8 @@ import {
   ActivatedRoute
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
+import { Todo } from '../models/Todo.model';
 import { TodoService } from '../_services/todo.service';
-import { Todo } from '../components/todo-list/todo-list.component';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +18,7 @@ export class EditTodoResolver implements Resolve<Todo> {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Todo> {
-    return this.todoService.getTodo(route.params.user, route.params.id);
+
+    return this.todoService.getTodo(+route.paramMap.get('id'));
   }
 }

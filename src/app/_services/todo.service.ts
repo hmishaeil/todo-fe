@@ -1,6 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Todo } from '../components/todo-list/todo-list.component';
+import { Todo } from '../models/Todo.model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,27 +9,22 @@ export class TodoService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getTodos(user: string){
-    const headers = null;
-    
-    return this.httpClient.get<Todo[]>
-    (`http://localhost:8080/users/${user}/todos`, {headers});
+  getTodos() {
+    return this.httpClient.get<Todo[]>(`http://localhost:8080/todos`);
   }
 
-  getTodo(user: string, id: number){
-    return this.httpClient.get<Todo>(`http://localhost:8080/users/${user}/todos/${id}`);
+  getTodo(id: number) {
+    return this.httpClient.get<Todo>(`http://localhost:8080/todos/${id}`);
   }
 
-  deleteTodo(user: string, id: number){
-    return this.httpClient.delete<void>(`http://localhost:8080/users/${user}/todos/${id}`);
+  createTodo(todo: Todo) {
+    return this.httpClient.post<Todo>(`http://localhost:8080/todos`, todo);
   }
 
-  updateTodo(todo: Todo){
-    return this.httpClient.put<Todo>(`http://localhost:8080/users/${todo.user}/todos/${todo.id}`, todo);
+  editTodo(todo: Todo) {
+
+    return this.httpClient.put<Todo>(`http://localhost:8080/todos`, todo);
   }
 
-  createTodo(todo: Todo){
-    return this.httpClient.post<Todo>(`http://localhost:8080/users/${todo.user}/todos`, todo);
-  }
 
 }

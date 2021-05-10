@@ -1,10 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { SESSION_STORAGE_TOKEN, SESSION_STORAGE_USERNAME } from '../_constants/app.constant';
+import { LoginRequest } from '../_requests/login.request';
 import { SignUpRequest } from '../_requests/signup.request';
+import { LoginResponse } from '../_responses/login.response';
 import { SignUpResponse } from '../_responses/signup.response';
 
 
@@ -17,13 +20,23 @@ export class AuthService {
 
   signUp(req: SignUpRequest) {
     return this.httpClient.post<SignUpResponse>(environment.apiUrl + "/signup", req).pipe(map(res => {
-      // sessionStorage.setItem(SESSION_STORAGE_USERNAME, username);
-      // sessionStorage.setItem(SESSION_STORAGE_TOKEN, res.token);
     }));
   }
 
-  isUserLoggedIn(): boolean {
-    const username = sessionStorage.getItem(SESSION_STORAGE_USERNAME);
-    return !(username === null)
+
+  login(req: LoginRequest) {
+    return this.httpClient.post<LoginResponse>(environment.apiUrl + "/login", req).pipe(
+      map((res) => {
+        localStorage.setItem('user', req.username);
+        localStorage.setItem('token', res.token);
+      })
+    );
   }
+
+  loggedIn(): boolean {
+    const user = localStorage.getItem('user');
+    const token = localStorage.getItem('token');
+    return !(user === null && token === null)
+  }
+
 }

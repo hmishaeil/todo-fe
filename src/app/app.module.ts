@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { ErrorComponent } from './components/error/error.component';
-import { TodoListComponent } from './components/todo-list/todo-list.component';
+import { TodosComponent } from './components/todos/todos.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
@@ -28,7 +28,7 @@ import { VerifyEmailComponent } from './components/verify-email/verify-email.com
     LoginComponent,
     WelcomeComponent,
     ErrorComponent,
-    TodoListComponent,
+    TodosComponent,
     MenuComponent,
     FooterComponent,
     HomeComponent,

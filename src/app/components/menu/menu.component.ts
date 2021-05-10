@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { SESSION_STORAGE_TOKEN, SESSION_STORAGE_USERNAME } from 'src/app/_constants/app.constant';
 import { AuthService } from '../../_services/auth.service';
 
 @Component({
@@ -14,8 +13,8 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onLogout(){
-    sessionStorage.removeItem(SESSION_STORAGE_USERNAME);
-    sessionStorage.removeItem(SESSION_STORAGE_TOKEN);
+  onLogout() {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
   }
 }

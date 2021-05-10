@@ -4,23 +4,26 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
-  HttpHeaders
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { SESSION_STORAGE_TOKEN } from '../_constants/app.constant';
+import {some, includes} from 'lodash';
+
+const excludedUrls = ['signup', 'login'];
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
   constructor() { }
 
+
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
-    if (request.url !== "http://localhost:8080/signup") {
+    if(!some(excludedUrls, (urlKeyword) => includes(request.url, urlKeyword))){
       request = request.clone({
         setHeaders:
-          { Authorization: 'Bearer ' + sessionStorage.getItem(SESSION_STORAGE_TOKEN) }
+          { Authorization: 'Bearer ' + localStorage.getItem('token') }
       });
+
     }
 
     return next.handle(request);

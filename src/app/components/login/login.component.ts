@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoginRequest } from 'src/app/_requests/login.request';
 import { AuthService } from '../../_services/auth.service';
 
 @Component({
@@ -21,14 +22,19 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
-    // const auth = this.authService.authenticate(this.email, this.password).
-    //   subscribe(
-    //     res => {
-    //       this.router.navigate(['welcome', this.email])
-    //     },
-    //     err => {
-    //       this.errMsg = err.error
-    //     }
-    //   )}
+
+    const loginReq: LoginRequest = new LoginRequest();
+    loginReq.username = this.email;
+    loginReq.password = this.password;
+
+    const auth = this.authService.login(loginReq).
+      subscribe(
+        res => {
+          this.router.navigate(['welcome', this.email])
+        },
+        err => {
+          this.errMsg = err.error
+        }
+      )
   }
 }

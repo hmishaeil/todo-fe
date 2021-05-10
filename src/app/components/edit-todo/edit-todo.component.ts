@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Todo } from 'src/app/models/Todo.model';
 import { TodoService } from '../../_services/todo.service';
-import { Todo } from '../todo-list/todo-list.component';
+// import { Todo } from '../todos/todos.component';
 
 @Component({
   selector: 'app-edit-todo',
@@ -10,7 +11,6 @@ import { Todo } from '../todo-list/todo-list.component';
 })
 export class EditTodoComponent implements OnInit {
 
-  username: string;
   todo: Todo;
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -22,12 +22,11 @@ export class EditTodoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.username = sessionStorage.getItem('username')
   }
   
   onSubmit() {
-    this.todoService.updateTodo(this.todo).subscribe(res => {
-      this.router.navigate(['todo-list'])
-    });
+    // this.todoService.updateTodo(this.todo).subscribe(res => {
+    //   this.router.navigate(['todo-list'])
+    // });
   }
 }

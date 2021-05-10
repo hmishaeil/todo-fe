@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Todo } from 'src/app/models/Todo.model';
 import { SESSION_STORAGE_TOKEN, SESSION_STORAGE_USERNAME } from 'src/app/_constants/app.constant';
 import { TodoService } from '../../_services/todo.service';
-import { Todo } from '../todo-list/todo-list.component';
 
 @Component({
   selector: 'app-create-todo',
@@ -19,11 +19,9 @@ export class CreateTodoComponent implements OnInit {
     this.todo = new Todo;
   }
 
-  onSubmit(){
-    this.todo.user = sessionStorage.getItem(SESSION_STORAGE_USERNAME);
-
+  onCreate(){
     this.todoService.createTodo(this.todo).subscribe(res => {
-      this.router.navigate(['/todo-list']);
+      this.router.navigate(['/todos']);
     });
   }
 

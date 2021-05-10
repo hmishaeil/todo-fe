@@ -6,7 +6,7 @@ import { ErrorComponent } from './components/error/error.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
-import { TodoListComponent } from './components/todo-list/todo-list.component';
+import { TodosComponent } from './components/todos/todos.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { EditTodoResolver } from './_resolvers/edit-todo.resolver';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
@@ -16,10 +16,10 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'verify-email', component: VerifyEmailComponent },
   { path: 'welcome/:name', component: WelcomeComponent },
-  { path: 'todo-list', component: TodoListComponent, canActivate: [AuthGuard] },
+  { path: 'todos', component: TodosComponent, canActivate: [AuthGuard] },
   { path: 'create-todo', component: CreateTodoComponent, canActivate: [AuthGuard] },
   {
-    path: 'edit-todo/users/:user/todos/:id',
+    path: 'edit-todo/todos/:id',
     component: EditTodoComponent, canActivate: [AuthGuard], resolve: { todo: EditTodoResolver }
   },
   { path: '**', component: ErrorComponent },

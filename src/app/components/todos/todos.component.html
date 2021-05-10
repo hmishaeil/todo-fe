@@ -12,21 +12,23 @@
     <table *ngIf="!errMsg" class="table">
       <thead>
         <tr>
-          <th scope="col">Id</th>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
           <th scope="col">Description</th>
           <th scope="col">Done</th>
-          <th scope="col">Deadline</th>
+          <th scope="col">Target Date</th>
           <th scope="col">Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let todo of todoList">
-          <th scope="row">{{todo.id}}</th>
-          <td>{{todo.description}}</td>
+        <tr *ngFor="let todo of todos; let todoNumber = index ">
+          <th scope="row">{{todoNumber + 1}}</th>
+          <td>{{todo.name | titlecase}}</td>
+          <td>{{todo.description | slice:0:10 | titlecase }}{{todo.description.length > 10 ? "..." : ""}}</td>
           <td>
             <i *ngIf="todo.done" class="fa fa-check text-success" aria-hidden="true"></i>
           </td>
-          <td>{{todo.deadline | date}}</td>
+          <td>{{todo.targetDate | date}}</td>
           <td>
             <span class="m-2">
               <i class="fa fa-pencil text-warning" aria-hidden="true" style="cursor: pointer"
