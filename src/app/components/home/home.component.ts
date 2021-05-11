@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { SignUpRequest } from 'src/app/_requests/signup.request';
 import { AuthService } from 'src/app/_services/auth.service';
-import _ from "lodash-es";
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Todo } from 'src/app/models/Todo.model';
 import { TodoService } from '../../_services/todo.service';
-// import { Todo } from '../todos/todos.component';
 
 @Component({
   selector: 'app-edit-todo',
@@ -15,7 +15,8 @@ export class EditTodoComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
     private todoService: TodoService,
-    private router: Router) {
+    private router: Router,
+    private toastr: ToastrService) {
     this.activatedRoute.data.subscribe(res => {
       this.todo = res.todo;
     })
@@ -23,10 +24,11 @@ export class EditTodoComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  
-  onSubmit() {
-    // this.todoService.updateTodo(this.todo).subscribe(res => {
-    //   this.router.navigate(['todo-list'])
-    // });
+
+  onUpdate() {
+    this.todoService.updateTodo(this.todo).subscribe(res => {
+      this.toastr.success("Todo updated successfully!")
+      this.router.navigate(['todos'])
+    });
   }
 }

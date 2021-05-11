@@ -10,11 +10,15 @@ import { TodosComponent } from './components/todos/todos.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { EditTodoResolver } from './_resolvers/edit-todo.resolver';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
+import { RequestRestPasswordComponent } from './components/request-reset-password/request-reset-password.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'verify-email', component: VerifyEmailComponent },
+  { path: 'request-reset-password', component: RequestRestPasswordComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'welcome/:name', component: WelcomeComponent },
   { path: 'todos', component: TodosComponent, canActivate: [AuthGuard] },
   { path: 'create-todo', component: CreateTodoComponent, canActivate: [AuthGuard] },

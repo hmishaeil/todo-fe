@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoginRequest } from 'src/app/_requests/login.request';
 import { AuthService } from '../../_services/auth.service';
 
@@ -8,9 +8,13 @@ import { AuthService } from '../../_services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(
+    private activeRoute: ActivatedRoute,
+    private router: Router,
+    private authService: AuthService) { }
+
 
   email: string;
   password: string;
@@ -18,7 +22,21 @@ export class LoginComponent implements OnInit {
   successLogin = true;
   errMsg = null;
 
+  showSuccessfulResetPasswordMsg = 0;
+  msg = "Your password has been reset successfully. You can login with your new password now."
+  sub: any;
+
   ngOnInit(): void {
+    this.sub = this.activeRoute.queryParams
+      .subscribe(params => {
+        this.showSuccessfulResetPasswordMsg = params.successfulResetPassword;
+        this.email = params.username;
+      }
+      );
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 
   onLogin() {
@@ -36,5 +54,9 @@ export class LoginComponent implements OnInit {
           this.errMsg = err.error
         }
       )
+  }
+
+  onRequestResetPassword() {
+    this.router.navigate(['request-reset-password'])
   }
 }

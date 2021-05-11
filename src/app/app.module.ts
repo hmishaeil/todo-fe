@@ -21,6 +21,9 @@ import { ToastrModule } from 'ngx-toastr';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
+import { RequestRestPasswordComponent } from './components/request-reset-password/request-reset-password.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { HttpErrorInterceptor } from './_interceptors/http-error.interceptor';
 
 @NgModule({
   declarations: [
@@ -36,6 +39,8 @@ import { VerifyEmailComponent } from './components/verify-email/verify-email.com
     CreateTodoComponent,
     MatchPasswordDirective,
     VerifyEmailComponent,
+    RequestRestPasswordComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,9 +48,22 @@ import { VerifyEmailComponent } from './components/verify-email/verify-email.com
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot(
+      {
+        timeOut: 5000,
+        positionClass: 'toast-top-right',
+        preventDuplicates: true,
+        progressBar: true,
+        closeButton: true
+      }
+    ),
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

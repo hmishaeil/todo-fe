@@ -1,11 +1,11 @@
 <div class="row mt-3">
     <div class="col-6  m-auto">
         <h3>Edit Todo</h3>
-        <form (ngSubmit)="onSubmit()" #todoForm="ngForm">
+        <form (ngSubmit)="onUpdate()" #todoForm="ngForm">
             <div class="form-group mt-3">
                 <label for="todoName">Name</label>
                 <input type="text" class="form-control" id="todoName" placeholder="Enter the todo name"
-                [(ngModel)]="todo.name" name="name" #name="ngModel" required>
+                    [(ngModel)]="todo.name" name="name" #name="ngModel" required>
                 <ul *ngIf="!name.valid && name.touched" class="text-danger">
                     <li>Field is required</li>
                 </ul>
@@ -21,8 +21,8 @@
             <div class="form-group mt-3">
                 <label for="todoTargetDate">Target Date</label>
                 <input type="date" class="form-control" id="todoTargetDate" placeholder="Enter the target date"
-                    [ngModel]="todo.targetDate | date:'yyyy-MM-dd'" (ngModelChange)="todo.targetDate=$event" name="todoDate"
-                    #todoDate="ngModel" required>
+                    [ngModel]="todo.targetDate | date:'yyyy-MM-dd'" (ngModelChange)="todo.targetDate=$event"
+                    name="todoDate" #todoDate="ngModel" required>
                 <ul *ngIf="!todoDate.valid && todoDate.touched" class="text-danger">
                     <li>Field is required</li>
                 </ul>

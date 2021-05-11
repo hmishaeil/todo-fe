@@ -21,10 +21,11 @@ export class TodoService {
     return this.httpClient.post<Todo>(`http://localhost:8080/todos`, todo);
   }
 
-  editTodo(todo: Todo) {
-
+  updateTodo(todo: Todo) {
     return this.httpClient.put<Todo>(`http://localhost:8080/todos`, todo);
   }
 
-
+  deleteTodo(id: number) {
+    return this.httpClient.delete(`http://localhost:8080/todos/${id}`);
+  }
 }

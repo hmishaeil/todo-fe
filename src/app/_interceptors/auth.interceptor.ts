@@ -6,19 +6,18 @@ import {
   HttpInterceptor,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {some, includes} from 'lodash';
+import * as _ from 'lodash';
 
-const excludedUrls = ['signup', 'login'];
+const excludedUrls = ['signup', 'login', 'request-reset-password', 'reset-password'];
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
   constructor() { }
 
-
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
-    if(!some(excludedUrls, (urlKeyword) => includes(request.url, urlKeyword))){
+    if (!_.some(excludedUrls, (urlKeyword) => _.includes(request.url, urlKeyword))) {
       request = request.clone({
         setHeaders:
           { Authorization: 'Bearer ' + localStorage.getItem('token') }

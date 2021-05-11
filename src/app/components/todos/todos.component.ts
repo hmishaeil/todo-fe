@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { EditTodoComponent } from '../edit-todo/edit-todo.component';
 import { TodoService } from '../../_services/todo.service';
-import { SESSION_STORAGE_USERNAME } from 'src/app/_constants/app.constant';
 import { Todo } from 'src/app/models/Todo.model';
+import { ToastrService } from 'ngx-toastr';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-todos',
@@ -18,7 +18,7 @@ export class TodosComponent implements OnInit {
   resMsg = null;
   user: string;
 
-  constructor(private todoService: TodoService, private router: Router) { }
+  constructor(private todoService: TodoService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.getTodos();
@@ -27,30 +27,40 @@ export class TodosComponent implements OnInit {
   private getTodos() {
     this.todoService.getTodos().subscribe(todos => {
       this.todos = todos;
-      
     }, error => {
       console.error(error)
       this.errMsg = "Error happened.";
     });
   }
 
-  onDeleteTodo(id: number){
-    // this.todoService.deleteTodo(this.user, id).subscribe(res => {
-    //   this.getAllTodos();
-    //   this.resMsg = id + " Deleted!"
-    // }, err => {
-    //   this.errMsg = "Error happened.";
-    // })
+  onAdd() {
+    this.router.navigate([`create-todo`])
   }
 
-  onEditTodo(id: number){
+  onEditTodo(id: number) {
     console.log(id)
     this.router.navigate([`edit-todo/todos/${id}`])
   }
 
-  onAdd(){
-    this.router.navigate([`create-todo`])
+  onDeleteTodo(id: number) {
+    swal("Are you sure to delete the todo?", {
+      dangerMode: true,
+      buttons: ["Cancel", "Ok"],
+    }).then(
+      willDelete => {
+        if(willDelete){
+                  this.todoService.deleteTodo(id).subscribe(res => {
+          this.toastr.success("Todo deleted successfully!");
+    
+          this.getTodos()
+        }, err => {
+          this.toastr.error(err);
+          this.errMsg = "Error happened.";
+        })
+        }
+      }
+    );
   }
 }
 
- 
+

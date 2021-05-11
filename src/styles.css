@@ -1,6 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 
-
 .ng-touched.ng-invalid:not(form)  {
     border-left: 3px solid red; /* red */
 }
+
+.swal-button--confirm {
+}
+
+.swal-button--cancel {
+}
+
