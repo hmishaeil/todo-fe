@@ -18,6 +18,8 @@ export class TodosComponent implements OnInit {
   resMsg = null;
   user: string;
 
+  loading: boolean = true;
+
   constructor(private todoService: TodoService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -30,7 +32,7 @@ export class TodosComponent implements OnInit {
     }, error => {
       console.error(error)
       this.errMsg = "Error happened.";
-    });
+    }).add(() => this.loading = false );
   }
 
   onAdd() {

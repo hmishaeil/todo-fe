@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 
@@ -24,6 +24,8 @@ import { VerifyEmailComponent } from './components/verify-email/verify-email.com
 import { RequestRestPasswordComponent } from './components/request-reset-password/request-reset-password.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { HttpErrorInterceptor } from './_interceptors/http-error.interceptor';
+import { SpinnerComponent } from './components/spinner/spinner.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,7 @@ import { HttpErrorInterceptor } from './_interceptors/http-error.interceptor';
     VerifyEmailComponent,
     RequestRestPasswordComponent,
     ResetPasswordComponent,
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +51,7 @@ import { HttpErrorInterceptor } from './_interceptors/http-error.interceptor';
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    NgxSpinnerModule,
     ToastrModule.forRoot(
       {
         timeOut: 5000,
@@ -58,6 +62,7 @@ import { HttpErrorInterceptor } from './_interceptors/http-error.interceptor';
       }
     ),
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

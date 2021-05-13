@@ -1,5 +1,6 @@
 <div class="row mt-5">
   <div class="col-6 m-auto">
+    <app-spinner *ngIf="loading"></app-spinner>
     <div *ngIf="errMsg" class="alert-danger text-center">
       {{errMsg}}
     </div>

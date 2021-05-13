@@ -4,7 +4,11 @@ import { ToastrService } from 'ngx-toastr';
 import { InitResetPasswordRequest } from 'src/app/_requests/init_reset_password.request';
 import { ResetPasswordRequest } from 'src/app/_requests/reset_password.request';
 import { AuthService } from 'src/app/_services/auth.service';
-import * as swal from 'sweetalert';
+
+import * as _swal from 'sweetalert';
+import { SweetAlert } from 'sweetalert/typings/core';
+
+const swal: SweetAlert = _swal as any;
 
 @Component({
   selector: 'app-request-reset-password',
