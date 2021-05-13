@@ -12,6 +12,9 @@ import { EditTodoResolver } from './_resolvers/edit-todo.resolver';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 import { RequestRestPasswordComponent } from './components/request-reset-password/request-reset-password.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { UsersComponent } from './components/users/users.component';
+import { EditUserComponent } from './components/edit-user/edit-user.component';
+import { EditUserResolver } from './_resolvers/edit-user.resolver';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -25,6 +28,11 @@ const routes: Routes = [
   {
     path: 'edit-todo/todos/:id',
     component: EditTodoComponent, canActivate: [AuthGuard], resolve: { todo: EditTodoResolver }
+  },
+  { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
+  {
+    path: 'edit-user/users/:id',
+    component: EditUserComponent, canActivate: [AuthGuard], resolve: { user: EditUserResolver }
   },
   { path: '**', component: ErrorComponent },
 ];

@@ -26,6 +26,8 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
 import { HttpErrorInterceptor } from './_interceptors/http-error.interceptor';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { UsersComponent } from './components/users/users.component';
+import { EditUserComponent } from './components/edit-user/edit-user.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     RequestRestPasswordComponent,
     ResetPasswordComponent,
     SpinnerComponent,
+    UsersComponent,
+    EditUserComponent,
   ],
   imports: [
     BrowserModule,

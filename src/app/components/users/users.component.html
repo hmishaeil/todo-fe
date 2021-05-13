@@ -1,0 +1,46 @@
+<div class="row mt-5">
+    <div class="col-10 m-auto">
+        <app-spinner *ngIf="loading"></app-spinner>
+        <div *ngIf="errMsg" class="alert-danger text-center">
+            {{errMsg}}
+        </div>
+        <div class="mb-3">
+            <button class="btn btn-sm btn-primary" (click)="onUserAdd()"><i class="fa fa-plus"></i></button>
+        </div>
+        <table *ngIf="!errMsg" class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Enabled?</th>
+                    <th scope="col">Created At</th>
+                    <th scope="col">Email Verified At</th>
+                    <th scope="col">Roles</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users; let userNumber = index ">
+                    <th scope="row">{{userNumber + 1}}</th>
+                    <td>{{user.email}}</td>
+                    <td>
+                        <i *ngIf="user.enabled; else notEnabled" class="fa fa-check text-success"
+                            aria-hidden="true"></i>
+                        <ng-template #notEnabled>
+                            <i class="fas fa-times text-danger" aria-hidden="true"></i>
+                        </ng-template>
+                    </td>
+                    <td>{{user.createdAt | date}}</td>
+                    <td>{{user.verifiedAt | date}}</td>
+                    <td>{{user.roles[0].name | slice:5 }}</td>
+                    <td>
+                        <span class="m-2">
+                            <i class="fa fa-pencil text-warning" aria-hidden="true" style="cursor: pointer"
+                                (click)="onUserEdit()"></i>
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -13,7 +13,10 @@
             <a class="nav-link" routerLink="/">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="todos" *ngIf="authService.loggedIn()">ToDo List</a>
+            <a class="nav-link" routerLink="todos" *ngIf="authService.loggedIn()">Todos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="users" *ngIf="authService.loggedIn()">Users</a>
           </li>
         </ul>
       </div>
