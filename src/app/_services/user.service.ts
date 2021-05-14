@@ -13,7 +13,7 @@ export class UserService {
   }
 
   getUser(id: number): Observable<User> {
-    return this.httpClient.get<User>(environment.apiUrl + "/users/:id");
+    return this.httpClient.get<User>(environment.apiUrl + `/users/${id}`);
   }
 
   getUsers(): Observable<User[]> {
@@ -24,8 +24,8 @@ export class UserService {
     return this.httpClient.post<User>(environment.apiUrl + "/users", "");
   }
 
-  updateUser(): Observable<User> {
-    return this.httpClient.put<User>(environment.apiUrl + "/users", "");
+  updateUser(user: User): Observable<User> {
+    return this.httpClient.put<User>(environment.apiUrl + "/users", user);
   }
 
 }

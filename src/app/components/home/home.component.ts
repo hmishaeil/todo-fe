@@ -27,7 +27,6 @@ export class HomeComponent implements OnInit {
   onSignUp() {
 
     const req: SignUpRequest = new SignUpRequest();
-    req.email = this.email;
     req.username = this.email;
     req.password = this.password;
 
@@ -35,11 +34,7 @@ export class HomeComponent implements OnInit {
       res => {
         this.toastr.success('User created!', 'Great Success');
         this.userCreated = true;
-      },
-      err => {
-        console.log(err)
-        this.toastr.error(err.error.errors || "TODO: Error");
-      }
+      } 
     );
   }
 }

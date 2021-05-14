@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { InitResetPasswordRequest } from 'src/app/_requests/init_reset_password.request';
-import { ResetPasswordRequest } from 'src/app/_requests/reset_password.request';
 import { AuthService } from 'src/app/_services/auth.service';
 
 import * as _swal from 'sweetalert';
@@ -36,13 +35,13 @@ export class RequestRestPasswordComponent implements OnInit {
       },
       error => {
 
-        swal({
-          text: "Make sure you entered the proper email address.",
-          icon: "warning",
-          buttons: {
-            confirm: { text: 'Ok', className: 'btn btn-primary' },
-          },
-        });
+        // swal({
+        //   text: "Make sure you entered the proper email address.",
+        //   icon: "warning",
+        //   buttons: {
+        //     confirm: { text: 'Ok', className: 'btn btn-primary' },
+        //   },
+        // });
 
       });
   }

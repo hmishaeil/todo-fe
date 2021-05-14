@@ -5,18 +5,17 @@ import {
   ActivatedRouteSnapshot
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
+import { User } from '../models/User.model';
 import { UserService } from '../_services/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EditUserResolver implements Resolve<boolean> {
+export class EditUserResolver implements Resolve<User> {
 
-  constructor(private userService: UserService){}
+  constructor(private userService: UserService) { }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-
-    return of(true)
-    // return this.userService.getUser();
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<User> {
+    return this.userService.getUser(route.params.id);
   }
 }
