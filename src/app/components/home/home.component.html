@@ -9,11 +9,11 @@
             <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
                 <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                    placeholder="Enter email" [(ngModel)]="email" #emailInput="ngModel" name="email" required email>
+                    placeholder="Enter email" [(ngModel)]="username" #emailInput="ngModel" name="username" required email>
             </div>
             <ul *ngIf="!emailInput.valid && emailInput.touched" class="text-danger">
                 <li *ngIf="emailInput.errors.required">Email field is required.</li>
-                <li *ngIf="emailInput.errors.email">Email format is required.</li>
+                <li *ngIf="emailInput.errors.username">Email format is required.</li>
             </ul>
             <br>
             <div class="form-group">

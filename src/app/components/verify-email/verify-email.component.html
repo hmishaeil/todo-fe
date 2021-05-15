@@ -1,8 +1,13 @@
-<div class="row">
-    <div class="col-9 text-center m-auto">
-        <p>Congrats! Your account has been created.</p>
-        <p>We just sent you an email to <strong>{{email}}</strong>, please check it out, 
-            and click on the verification link.</p>
-        <p>Then you can login</p>
+<div class="row mt-5" *ngIf="verified; else notVerified">
+    <div class="col-4 m-auto text-center alert alert-success">
+        <p>Your email verified successfully. <br> You can login here.</p>
     </div>
+    <app-login></app-login>
 </div>
+<ng-template #notVerified>
+    <div class="row mt-5">
+        <div class="col-4 m-auto text-center alert alert-danger">
+            <p>Your email is not verified yet. Please contact support for more information.</p>
+        </div>
+    </div>
+</ng-template>

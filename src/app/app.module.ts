@@ -20,7 +20,7 @@ import { MatchPasswordDirective } from './_directives/match-password.directive';
 import { ToastrModule } from 'ngx-toastr';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
+import { SentVerifyEmailComponent } from './components/sent-verify-email/sent-verify-email.component';
 import { RequestRestPasswordComponent } from './components/request-reset-password/request-reset-password.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { HttpErrorInterceptor } from './_interceptors/http-error.interceptor';
@@ -28,6 +28,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { UsersComponent } from './components/users/users.component';
 import { EditUserComponent } from './components/edit-user/edit-user.component';
+import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 
 @NgModule({
   declarations: [
@@ -42,12 +43,13 @@ import { EditUserComponent } from './components/edit-user/edit-user.component';
     EditTodoComponent,
     CreateTodoComponent,
     MatchPasswordDirective,
-    VerifyEmailComponent,
+    SentVerifyEmailComponent,
     RequestRestPasswordComponent,
     ResetPasswordComponent,
     SpinnerComponent,
     UsersComponent,
     EditUserComponent,
+    VerifyEmailComponent,
   ],
   imports: [
     BrowserModule,

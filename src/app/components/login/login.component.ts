@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private authService: AuthService) { }
 
 
-  email: string;
+  username: string;
   password: string;
 
   successLogin = true;
@@ -27,10 +27,13 @@ export class LoginComponent implements OnInit, OnDestroy {
   sub: any;
 
   ngOnInit(): void {
+
+    this.username = sessionStorage.getItem("username");
+    
     this.sub = this.activeRoute.queryParams
       .subscribe(params => {
         this.showSuccessfulResetPasswordMsg = params.successfulResetPassword;
-        this.email = params.username;
+        this.username = params.username;
       }
       );
   }
@@ -42,13 +45,13 @@ export class LoginComponent implements OnInit, OnDestroy {
   onLogin() {
 
     const loginReq: LoginRequest = new LoginRequest();
-    loginReq.username = this.email;
+    loginReq.username = this.username;
     loginReq.password = this.password;
 
-    const auth = this.authService.login(loginReq).
+    this.authService.login(loginReq).
       subscribe(
-        res => {
-          this.router.navigate(['welcome', this.email])
+        () => {
+          this.router.navigate(['/todos'])
         },
         err => {
           this.errMsg = err.error

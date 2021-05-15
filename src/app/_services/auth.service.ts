@@ -22,6 +22,10 @@ export class AuthService {
     }));
   }
 
+  verifyEmail(token: string) {
+    return this.httpClient.get<void>(environment.apiUrl + `/verify-email/${token}`)
+  }
+
   login(req: LoginRequest) {
     return this.httpClient.post<LoginResponse>(environment.apiUrl + "/login", req).pipe(
       map((res) => {
@@ -31,11 +35,11 @@ export class AuthService {
     );
   }
 
-  requestResetPassword(req: InitResetPasswordRequest){
+  requestResetPassword(req: InitResetPasswordRequest) {
     return this.httpClient.post(environment.apiUrl + "/request-reset-password", req);
   }
 
-  resetPassword(req: ResetPasswordRequest){
+  resetPassword(req: ResetPasswordRequest) {
     return this.httpClient.post(environment.apiUrl + "/reset-password", req);
   }
 

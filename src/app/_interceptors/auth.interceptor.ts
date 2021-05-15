@@ -8,7 +8,11 @@ import {
 import { Observable } from 'rxjs';
 import * as _ from 'lodash';
 
-const excludedUrls = ['signup', 'login', 'request-reset-password', 'reset-password'];
+const excludedUrls = ['signup', 
+                      'login', 
+                      'request-reset-password', 
+                      'reset-password',
+                      'verify-email'];
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {

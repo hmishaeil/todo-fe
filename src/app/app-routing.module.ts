@@ -9,20 +9,21 @@ import { LoginComponent } from './components/login/login.component';
 import { TodosComponent } from './components/todos/todos.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { EditTodoResolver } from './_resolvers/edit-todo.resolver';
-import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
+import { SentVerifyEmailComponent } from './components/sent-verify-email/sent-verify-email.component';
 import { RequestRestPasswordComponent } from './components/request-reset-password/request-reset-password.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { UsersComponent } from './components/users/users.component';
 import { EditUserComponent } from './components/edit-user/edit-user.component';
 import { EditUserResolver } from './_resolvers/edit-user.resolver';
+import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'verify-email', component: VerifyEmailComponent },
+  { path: 'sent-verify-email', component: SentVerifyEmailComponent },
+  { path: 'verify-email/:token', component: VerifyEmailComponent },
   { path: 'request-reset-password', component: RequestRestPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
-  { path: 'welcome/:name', component: WelcomeComponent },
   { path: 'todos', component: TodosComponent, canActivate: [AuthGuard] },
   { path: 'create-todo', component: CreateTodoComponent, canActivate: [AuthGuard] },
   {

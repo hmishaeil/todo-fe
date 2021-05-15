@@ -16,7 +16,7 @@ const swal: SweetAlert = _swal as any;
 })
 export class RequestRestPasswordComponent implements OnInit {
 
-  email: string;
+  username: string;
   resetPasswordRequestEmailed: boolean;
 
   constructor(private authService: AuthService, private toastr: ToastrService) { }
@@ -27,11 +27,12 @@ export class RequestRestPasswordComponent implements OnInit {
   requestResetPassword() {
 
     const req: InitResetPasswordRequest = new InitResetPasswordRequest();
-    req.username = this.email;
+    req.username = this.username;
 
     this.authService.requestResetPassword(req).subscribe(
-      res => {
-        this.resetPasswordRequestEmailed = true
+      () => {
+        this.resetPasswordRequestEmailed = true,
+        sessionStorage.setItem("username", this.username)
       },
       error => {
 

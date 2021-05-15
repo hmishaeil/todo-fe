@@ -33,14 +33,13 @@ export class ResetPasswordComponent implements OnInit {
   onResetPassword() {
 
     const req: ResetPasswordRequest = new ResetPasswordRequest();
+
     req.password = this.password;
     req.token = this.token;
+
     this.authService.resetPassword(req).subscribe(
-      res => {
-        this.router.navigate(['/login'], { queryParams: { 
-          successfulResetPassword: 1,
-          username: this.username
-        } })
+      () => {
+        this.router.navigate(['/login'], { queryParams: { successfulResetPassword: 1 } })
       }
     );
   }
