@@ -9,7 +9,6 @@ import { LoginComponent } from './components/login/login.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { ErrorComponent } from './components/error/error.component';
 import { TodosComponent } from './components/todos/todos.component';
-import { MenuComponent } from './components/menu/menu.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { EditTodoComponent } from './components/edit-todo/edit-todo.component';
@@ -29,6 +28,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { UsersComponent } from './components/users/users.component';
 import { EditUserComponent } from './components/edit-user/edit-user.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
+import { SignupComponent } from './components/signup/signup.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,6 @@ import { VerifyEmailComponent } from './components/verify-email/verify-email.com
     WelcomeComponent,
     ErrorComponent,
     TodosComponent,
-    MenuComponent,
     FooterComponent,
     HomeComponent,
     EditTodoComponent,
@@ -50,6 +50,8 @@ import { VerifyEmailComponent } from './components/verify-email/verify-email.com
     UsersComponent,
     EditUserComponent,
     VerifyEmailComponent,
+    SignupComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,

@@ -16,9 +16,11 @@ import { UsersComponent } from './components/users/users.component';
 import { EditUserComponent } from './components/edit-user/edit-user.component';
 import { EditUserResolver } from './_resolvers/edit-user.resolver';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
+import { SignupComponent } from './components/signup/signup.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'signup', component: SignupComponent },
   { path: 'login', component: LoginComponent },
   { path: 'sent-verify-email', component: SentVerifyEmailComponent },
   { path: 'verify-email/:token', component: VerifyEmailComponent },

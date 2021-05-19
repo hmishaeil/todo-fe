@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="col-3 mt-5 m-auto" *ngIf="!userCreated">
+        <br>
+        <h3 class="mb-5 text-muted">Signup Form</h3>
+
+        <form #signUpForm="ngForm" (ngSubmit)="onSignUp()" [appMatchPassword]="['password', 'confirmPassword']">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    placeholder="Enter email" [(ngModel)]="username" #emailInput="ngModel" name="username" required
+                    email>
+            </div>
+            <ul *ngIf="!emailInput.valid && emailInput.touched" class="text-danger">
+                <li *ngIf="emailInput.errors.required">Email field is required.</li>
+                <li *ngIf="emailInput.errors.username">Email format is required.</li>
+            </ul>
+            <br>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" id="passwordInput" placeholder="Password" required
+                    [(ngModel)]="password" #passwordInput="ngModel" name="password">
+            </div>
+            <ul *ngIf="!passwordInput.valid && passwordInput.touched" class="text-danger">
+                <li>Password is required.</li>
+            </ul>
+            <br>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Confirm Password</label>
+                <input type="password" class="form-control" id="confirmPasswordInput" placeholder="Confirm Password"
+                    required [(ngModel)]="confirmPassword" #confirmPasswordInput="ngModel" name="confirmPassword">
+            </div>
+            <ul *ngIf="!confirmPasswordInput.valid && confirmPasswordInput.touched" class="text-danger">
+                <li *ngIf="confirmPasswordInput.errors.required">Password confirmation field is required.</li>
+                <li *ngIf="confirmPasswordInput.errors.passwordMismatch">Passwords do not match.</li>
+            </ul>
+            <br>
+            <button type="submit" class="btn btn-sm btn-primary" [disabled]="signUpForm.form.invalid">Sign Up</button>
+        </form>
+        <hr>
+        <p>Already have an account?</p>
+        <a class="btn btn-sm btn-success" routerLink="/login">Login</a>
+    </div>
+    <div class="col-6 m-auto" *ngIf="userCreated">
+        <div class="text-center">
+            <app-verify-email [email]="email"></app-verify-email>
+        </div>
+    </div>
+</div>
