@@ -7,31 +7,35 @@
             <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
                 <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                    placeholder="Enter email" [(ngModel)]="username" #emailInput="ngModel" name="username" required
-                    email>
+                    placeholder="Please enter your email" [(ngModel)]="username" #emailInput="ngModel" name="username"
+                    required email>
             </div>
             <ul *ngIf="!emailInput.valid && emailInput.touched" class="text-danger">
-                <li *ngIf="emailInput.errors.required">Email field is required.</li>
-                <li *ngIf="emailInput.errors.username">Email format is required.</li>
+                <li *ngIf="emailInput.errors?.required">Email field is required.</li>
+                <li *ngIf="emailInput.errors?.email">Email format is required.</li>
             </ul>
             <br>
             <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="passwordInput" placeholder="Password" required
-                    [(ngModel)]="password" #passwordInput="ngModel" name="password">
+                <input type="password" class="form-control" id="passwordInput" placeholder="Please enter your password"
+                    required [(ngModel)]="password" #passwordInput="ngModel" name="password" minlength="8"
+                    maxlength="16">
+                <small id="emailHelp" class="form-text text-muted">Password must contain 8 to 16 characters.</small>
             </div>
             <ul *ngIf="!passwordInput.valid && passwordInput.touched" class="text-danger">
-                <li>Password is required.</li>
+                <li *ngIf="passwordInput.errors?.required">Password confirmation field is required.</li>
+                <li *ngIf="passwordInput.errors?.minlength">Password must be at least 8 characters.</li>
             </ul>
             <br>
             <div class="form-group">
                 <label for="exampleInputPassword1">Confirm Password</label>
-                <input type="password" class="form-control" id="confirmPasswordInput" placeholder="Confirm Password"
-                    required [(ngModel)]="confirmPassword" #confirmPasswordInput="ngModel" name="confirmPassword">
+                <input type="password" class="form-control" id="confirmPasswordInput"
+                    placeholder="Please confirm your password" required [(ngModel)]="confirmPassword"
+                    #confirmPasswordInput="ngModel" name="confirmPassword">
             </div>
             <ul *ngIf="!confirmPasswordInput.valid && confirmPasswordInput.touched" class="text-danger">
-                <li *ngIf="confirmPasswordInput.errors.required">Password confirmation field is required.</li>
-                <li *ngIf="confirmPasswordInput.errors.passwordMismatch">Passwords do not match.</li>
+                <li *ngIf="confirmPasswordInput.errors?.required">Password confirmation field is required.</li>
+                <li *ngIf="confirmPasswordInput.errors?.passwordMismatch">Passwords do not match.</li>
             </ul>
             <br>
             <button type="submit" class="btn btn-sm btn-primary" [disabled]="signUpForm.form.invalid">Sign Up</button>
