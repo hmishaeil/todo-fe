@@ -21,6 +21,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let user of users; let userNumber = index ">
+                    
                     <th scope="row">{{userNumber + 1}}</th>
                     <td>{{user.username}}</td>
                     <td>
@@ -33,7 +34,7 @@
                     <td>{{user.createdAt | date}}</td>
                     <td>{{user.verifiedAt | date}}</td>
                     <td>{{user.roles[0].name | slice:5 }}</td>
-                    <td>
+                    <td *ngIf="checkUserRole(user, ['ROLE_ADMIN'])">
                         <span class="m-2">
                             <i class="fa fa-pencil text-warning" aria-hidden="true" style="cursor: pointer"
                                 (click)="onUserEdit(user.id)"></i>

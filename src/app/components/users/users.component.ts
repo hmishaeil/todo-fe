@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import Utils from 'src/app/helpers/utils';
 import { User } from 'src/app/models/User.model';
 import { UserService } from 'src/app/_services/user.service';
 
@@ -14,6 +15,8 @@ export class UsersComponent implements OnInit {
   errMsg: string;
 
   users: User[];
+
+  checkUserRole = Utils.checkUserRole;
 
   constructor(private userService: UserService, private router: Router) { }
 

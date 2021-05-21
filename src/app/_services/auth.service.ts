@@ -32,6 +32,12 @@ export class AuthService {
       map((res) => {
         localStorage.setItem('user', req.username);
         localStorage.setItem('token', res.token);
+
+        let jwtData = res.token.split('.')[1]
+let decodedJwtJsonData = window.atob(jwtData)
+console.log(decodedJwtJsonData)
+let decodedJwtData = JSON.parse(decodedJwtJsonData)
+
       })
     );
   }

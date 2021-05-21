@@ -26,10 +26,10 @@
                             <a class="nav-link" routerLink="/features">Features</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" routerLink="/todos">Todos</a>
+                            <a class="nav-link" routerLink="/todos" *ngIf="authService.isLoggedIn()">Todos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" routerLink="/users">Users</a>
+                            <a class="nav-link" routerLink="/users" *ngIf="authService.isLoggedIn()">Users</a>
                         </li>
                     </ul>
                     <!-- Left links -->
@@ -38,13 +38,16 @@
 
                 <!-- Right elements -->
                 <div class="d-flex align-items-center">
-                    <a class="btn btn-sm btn-outline-success me-3" routerLink="/login" *ngIf="!loggedIn">
+                    <a class="btn btn-sm btn-outline-success me-3" routerLink="/login"
+                        *ngIf="!authService.isLoggedIn()">
                         Login
                     </a>
-                    <a class="btn btn-sm btn-outline-primary me-3" routerLink="/signup" *ngIf="!loggedIn">
+                    <a class="btn btn-sm btn-outline-primary me-3" routerLink="/signup"
+                        *ngIf="!authService.isLoggedIn()">
                         Signup
                     </a>
-                    <a class="btn btn-sm btn-outline-secondary me-3" (click)="onLogout()" *ngIf="loggedIn">
+                    <a class="btn btn-sm btn-outline-secondary me-3" (click)="onLogout()"
+                        *ngIf="authService.isLoggedIn()">
                         Logout
                     </a>
                 </div>

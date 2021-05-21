@@ -1,6 +1,5 @@
 <div class="row mt-5">
     <div class="col-6 m-auto">
-        {{userRequest|json}}
         <h3 class="text-muted mb-5">Add user</h3>
         <form #f="ngForm" (ngSubmit)="onAddUser()">
             <div class="form-group">
@@ -12,11 +11,12 @@
             <div class="btn-group" dropdown>
                 <button id="button-basic" dropdownToggle type="button"
                     class="btn btn-sm btn-outline-secondary dropdown-toggle" aria-controls="dropdown-basic">
-                    {{userRequest.roles || "Choose Role"}} <span class="caret"></span>
+                    {{userRequest.role || "Choose Role"}} <span class="caret"></span>
                 </button>
                 <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
                     <li *ngFor="let role of roles" role="menuitem">
-                        <a class="dropdown-item" style="cursor: pointer;" (click)="userRequest.roles = [role]">{{role | titlecase}}</a>
+                        <a class="dropdown-item" style="cursor: pointer;" (click)="userRequest.role = role">{{role |
+                            titlecase}}</a>
                     </li>
                 </ul>
             </div>
@@ -28,7 +28,7 @@
                     [(ngModel)]="userRequest.internalNote" name="internalNote"></textarea>
             </div>
             <br>
-            <button type="submit" class="btn btn-primary">Update</button>
+            <button type="submit" class="btn btn-primary">Add User</button>
         </form>
     </div>
 </div>

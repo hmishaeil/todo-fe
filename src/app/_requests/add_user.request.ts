@@ -1,8 +1,6 @@
-import { Role } from "../models/Role.model";
-
 export class AddUserRequest {
     username: string;
     enabled: boolean;
-    roles: Role[];
+    role: string;
     internalNote: string;
 }

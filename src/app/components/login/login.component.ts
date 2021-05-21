@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginRequest } from 'src/app/_requests/login.request';
-import { LoginResponse } from 'src/app/_responses/login.response';
 import { AuthService } from '../../_services/auth.service';
 
 @Component({
