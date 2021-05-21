@@ -14,16 +14,22 @@
                 <!-- Collapsible wrapper -->
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Navbar brand -->
-                    <a class="navbar-brand mt-2 mt-lg-0" href="#">
+                    <a class="navbar-brand mt-2 mt-lg-0" routerLink="/">
                         <img src="./assets/todo_icon.png" height="35" alt="" loading="lazy" />
                     </a>
                     <!-- Left links -->
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Home</a>
+                            <a class="nav-link" routerLink="/">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Features</a>
+                            <a class="nav-link" routerLink="/features">Features</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink="/todos">Todos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink="/users">Users</a>
                         </li>
                     </ul>
                     <!-- Left links -->
@@ -32,26 +38,15 @@
 
                 <!-- Right elements -->
                 <div class="d-flex align-items-center">
-                    <a class="btn btn-sm btn-outline-success me-3" routerLink="/login" *ngIf="!authService.loggedIn()">
+                    <a class="btn btn-sm btn-outline-success me-3" routerLink="/login" *ngIf="!loggedIn">
                         Login
                     </a>
-                    <a class="btn btn-sm btn-outline-primary me-3" href="/signup" *ngIf="!authService.loggedIn()">
+                    <a class="btn btn-sm btn-outline-primary me-3" routerLink="/signup" *ngIf="!loggedIn">
                         Signup
                     </a>
-                    <a class="btn btn-sm btn-outline-secondary me-3" (click)="onLogout()" *ngIf="authService.loggedIn()">
+                    <a class="btn btn-sm btn-outline-secondary me-3" (click)="onLogout()" *ngIf="loggedIn">
                         Logout
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                        <li>
-                            <a class="dropdown-item" href="#">My profile</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#">Settings</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#">Logout</a>
-                        </li>
-                    </ul>
                 </div>
                 <!-- Right elements -->
             </div>

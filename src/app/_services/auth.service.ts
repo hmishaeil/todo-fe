@@ -8,14 +8,15 @@ import { SignUpRequest } from '../_requests/signup.request';
 import { LoginResponse } from '../_responses/login.response';
 import { SignUpResponse } from '../_responses/signup.response';
 import { ResetPasswordRequest } from '../_requests/reset_password.request';
-
+import { take } from 'rxjs/operators';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   signUp(req: SignUpRequest) {
     return this.httpClient.post<SignUpResponse>(environment.apiUrl + "/signup", req).pipe(map(res => {
@@ -43,10 +44,15 @@ export class AuthService {
     return this.httpClient.post(environment.apiUrl + "/reset-password", req);
   }
 
-  loggedIn(): boolean {
-    const user = localStorage.getItem('user');
-    const token = localStorage.getItem('token');
-    return !(user === null && token === null)
+  validateJwt(token: string, username: string) {
+    return this.httpClient.get<boolean>(environment.apiUrl + `/validate-jwt/${token}/${username}`);
+  }
+
+  isLoggedIn(){
+    const token = localStorage.getItem("token");
+    const username = localStorage.getItem("user");
+
+    return !(token === null || username === null)
   }
 
 }

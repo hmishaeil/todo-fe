@@ -12,7 +12,9 @@ const excludedUrls = ['signup',
                       'login', 
                       'request-reset-password', 
                       'reset-password',
-                      'verify-email'];
+                      'verify-email',
+                      'validate-jwt',
+                    ];
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {

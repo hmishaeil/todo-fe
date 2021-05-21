@@ -9,12 +9,15 @@ import { AuthService } from 'src/app/_services/auth.service';
 })
 export class HeaderComponent implements OnInit {
 
+  loggedIn: boolean = false;
+
   constructor(public authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
+    this.loggedIn = this.authService.isLoggedIn()
   }
 
-  onLogout(){
+  onLogout() {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
 

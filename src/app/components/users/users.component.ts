@@ -26,7 +26,10 @@ export class UsersComponent implements OnInit {
     )
   }
 
-  onUserAdd() { }
+  onUserAdd() {
+    this.router.navigate([`/add-user`])
+  }
+  
   onUserEdit(id: number) {
     this.router.navigate([`/edit-user/users/${id}`])
   }

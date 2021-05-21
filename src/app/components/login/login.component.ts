@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginRequest } from 'src/app/_requests/login.request';
+import { LoginResponse } from 'src/app/_responses/login.response';
 import { AuthService } from '../../_services/auth.service';
 
 @Component({
@@ -19,7 +20,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   username: string;
   password: string;
 
-  successLogin = true;
   errMsg = null;
 
   showSuccessfulResetPasswordMsg = 0;
@@ -28,12 +28,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.username = sessionStorage.getItem("username");
-    
     this.sub = this.activeRoute.queryParams
       .subscribe(params => {
         this.showSuccessfulResetPasswordMsg = params.successfulResetPassword;
-        this.username = params.username;
       }
       );
   }

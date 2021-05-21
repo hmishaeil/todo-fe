@@ -30,7 +30,8 @@ import { EditUserComponent } from './components/edit-user/edit-user.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { HeaderComponent } from './components/header/header.component';
-
+import { AddUserComponent } from './components/add-user/add-user.component';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown'
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,6 +53,7 @@ import { HeaderComponent } from './components/header/header.component';
     VerifyEmailComponent,
     SignupComponent,
     HeaderComponent,
+    AddUserComponent,
   ],
   imports: [
     BrowserModule,
@@ -69,6 +71,7 @@ import { HeaderComponent } from './components/header/header.component';
         closeButton: true
       }
     ),
+    BsDropdownModule.forRoot(),
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [

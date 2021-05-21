@@ -1,12 +1,12 @@
 <div class="row mt-5">
     <div class="col-6 m-auto">
         <app-spinner *ngIf="loading"></app-spinner>
-
+        <h3 class="text-muted mb-5">Edit user</h3>
         <form #f="ngForm" (ngSubmit)="onUserEdit()">
             <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
                 <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" disabled
-                    [(ngModel)]="user.email" name="email">
+                    [(ngModel)]="user.username" name="email">
             </div>
             <br>
             <div class="form-group">

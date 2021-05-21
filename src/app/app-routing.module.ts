@@ -17,6 +17,7 @@ import { EditUserComponent } from './components/edit-user/edit-user.component';
 import { EditUserResolver } from './_resolvers/edit-user.resolver';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 import { SignupComponent } from './components/signup/signup.component';
+import { AddUserComponent } from './components/add-user/add-user.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -37,6 +38,7 @@ const routes: Routes = [
     path: 'edit-user/users/:id',
     component: EditUserComponent, canActivate: [AuthGuard], resolve: { user: EditUserResolver }
   },
+  { path: 'add-user', component: AddUserComponent },
   { path: '**', component: ErrorComponent },
 ];
 
