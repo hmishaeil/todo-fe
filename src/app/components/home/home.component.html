@@ -1,6 +1,6 @@
 <div class="row mt-5">
-    <div class="col-4 text-center m-auto text-muted">
-        <h2>Welcome</h2>
+    <div class="col-4 text-center m-auto">
+        <h2 class="text-muted">Welcome</h2>
         <br>
         <h4>Keep track of your todo tasks</h4>
         <hr>
@@ -87,11 +87,26 @@
 
         <i><strong>GitHub Links</strong></i>
         <ul>
-            
+            <li>
+                <a href="https://github.com/hmishaeil/todo-frontend">
+                    https://github.com/hmishaeil/todo-frontend
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/hmishaeil/todo-backend">
+                    https://github.com/hmishaeil/todo-backend
+                </a>
+            </li>
         </ul>
 
         <i><strong>Screenshots</strong></i>
 
-
+        <div class="row my-5">
+            <div class="col-6 p-5 text-center border-bottom" style="cursor: pointer;" *ngFor="let image of images">
+                <img [src]="image.url" [alt]="image.alt" placement="left" style="max-width: 50%;"
+                    (click)="onImageClick(image.url)">
+            </div>
+        </div>
+        <br>
     </div>
 </div>
