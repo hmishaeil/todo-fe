@@ -2,21 +2,19 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { LoginRequest } from '../_requests/login.request';
 import { InitResetPasswordRequest } from '../_requests/init_reset_password.request';
+import { LoginRequest } from '../_requests/login.request';
+import { ResetPasswordRequest } from '../_requests/reset_password.request';
 import { SignUpRequest } from '../_requests/signup.request';
 import { LoginResponse } from '../_responses/login.response';
 import { SignUpResponse } from '../_responses/signup.response';
-import { ResetPasswordRequest } from '../_requests/reset_password.request';
-import { take } from 'rxjs/operators';
-import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
   signUp(req: SignUpRequest) {
     return this.httpClient.post<SignUpResponse>(environment.apiUrl + "/signup", req).pipe(map(res => {
@@ -30,14 +28,9 @@ export class AuthService {
   login(req: LoginRequest) {
     return this.httpClient.post<LoginResponse>(environment.apiUrl + "/login", req).pipe(
       map((res) => {
-        localStorage.setItem('user', req.username);
+        localStorage.setItem('user', res.username);
         localStorage.setItem('token', res.token);
-
-        let jwtData = res.token.split('.')[1]
-let decodedJwtJsonData = window.atob(jwtData)
-console.log(decodedJwtJsonData)
-let decodedJwtData = JSON.parse(decodedJwtJsonData)
-
+        localStorage.setItem('role', res.role);
       })
     );
   }
@@ -54,7 +47,7 @@ let decodedJwtData = JSON.parse(decodedJwtJsonData)
     return this.httpClient.get<boolean>(environment.apiUrl + `/validate-jwt/${token}/${username}`);
   }
 
-  isLoggedIn(){
+  isLoggedIn() {
     const token = localStorage.getItem("token");
     const username = localStorage.getItem("user");
 

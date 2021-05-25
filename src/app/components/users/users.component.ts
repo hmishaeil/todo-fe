@@ -16,7 +16,7 @@ export class UsersComponent implements OnInit {
 
   users: User[];
 
-  checkUserRole = Utils.checkUserRole;
+  accessRoles = Utils.accessRoles;
 
   constructor(private userService: UserService, private router: Router) { }
 

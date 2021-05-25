@@ -16,7 +16,7 @@
                     <th scope="col">Created At</th>
                     <th scope="col">Email Verified At</th>
                     <th scope="col">Roles</th>
-                    <th scope="col">Actions</th>
+                    <th scope="col" *ngIf="accessRoles(['ADMIN'])">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -34,7 +34,7 @@
                     <td>{{user.createdAt | date}}</td>
                     <td>{{user.verifiedAt | date}}</td>
                     <td>{{user.roles[0].name | slice:5 }}</td>
-                    <td *ngIf="checkUserRole(user, ['ROLE_ADMIN'])">
+                    <td *ngIf="accessRoles(['ADMIN'])">
                         <span class="m-2">
                             <i class="fa fa-pencil text-warning" aria-hidden="true" style="cursor: pointer"
                                 (click)="onUserEdit(user.id)"></i>
