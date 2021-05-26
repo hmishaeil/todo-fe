@@ -10,23 +10,32 @@ import { AddUserRequest } from '../_requests/add_user.request';
 })
 export class UserService {
 
+  url = environment.apiUrl + "/users"
+
   constructor(private httpClient: HttpClient) {
   }
 
   getUser(id: number): Observable<User> {
-    return this.httpClient.get<User>(environment.apiUrl + `/users/${id}`);
+    return this.httpClient.get<User>(this.url + `/${id}`);
   }
 
-  getUsers(): Observable<User[]> {
-    return this.httpClient.get<User[]>(environment.apiUrl + "/users");
+  getUsers(searchTerm: string = null): Observable<User[]> {
+
+    let usersUrl = this.url;
+
+    if(searchTerm !== null){
+      usersUrl += `?searchTerm=${searchTerm}`
+    }
+
+    return this.httpClient.get<User[]>(usersUrl);
   }
 
   addUser(user: AddUserRequest): Observable<User> {
-    return this.httpClient.post<User>(environment.apiUrl + "/users", user);
+    return this.httpClient.post<User>(this.url, user);
   }
 
   updateUser(user: User): Observable<User> {
-    return this.httpClient.put<User>(environment.apiUrl + "/users", user);
+    return this.httpClient.put<User>(this.url, user);
   }
 
 }

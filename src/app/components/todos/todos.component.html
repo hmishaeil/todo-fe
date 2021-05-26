@@ -7,9 +7,26 @@
     <div *ngIf="resMsg" class="alert-success text-center">
       {{resMsg}}
     </div>
-    <div class="mb-3">
-      <button class="btn btn-sm btn-primary" (click)="onAdd()"><i class="fa fa-plus"></i></button>
+    <div class="row mb-3">
+      <div class="col-6">
+        <button class="btn btn-sm btn-primary" (click)="onAdd()"><i class="fa fa-plus"></i></button>
+      </div>
+      <div class="col-6">
+        <form class="d-flex" (ngSubmit)="onSearchTodo()">
+          <input class="form-control me-2" type="search" 
+          placeholder="Type name or description" aria-label="Search" [ngModel]="needle" name="needle" (ngModelChange)="onSearchInputChange($event)">
+          <button class="btn btn-sm btn-outline-success" type="submit" [disabled]="!needle">Search</button>
+        </form>
+      </div>
     </div>
+    <div class="row" *ngIf="searchResultBanner">
+      <div class="col">
+        <div class="alert alert-success" role="alert">
+          <strong>{{searchResultCount}}</strong> todo(s) found.
+        </div>
+      </div>
+    </div>
+    <br>
     <table *ngIf="!errMsg" class="table">
       <thead>
         <tr>

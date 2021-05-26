@@ -20,7 +20,7 @@
             </div>
             <div class="form-group mt-3">
                 <label for="todoTargetDate">Target Date</label>
-                <input type="date" class="form-control" id="todoTargetDate" placeholder="Enter the deadline"
+                <input type="date" class="form-control" id="todoTargetDate" placeholder="yyyy-MM-dd"
                     [ngModel]="todo.targetDate | date:'yyyy-MM-dd'" (ngModelChange)="todo.targetDate=$event"
                     name="todoDate" required #todoDate="ngModel">
                 <ul *ngIf="!todoDate.valid && todoDate.touched" class="text-danger">

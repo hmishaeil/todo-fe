@@ -20,6 +20,11 @@ export class TodosComponent implements OnInit {
 
   loading: boolean = true;
 
+  needle: string = null;
+
+  searchResultCount: number = 0;
+  searchResultBanner: boolean = false;
+
   constructor(private todoService: TodoService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -32,7 +37,7 @@ export class TodosComponent implements OnInit {
     }, error => {
       console.error(error)
       this.errMsg = "Error happened.";
-    }).add(() => this.loading = false );
+    }).add(() => this.loading = false);
   }
 
   onAdd() {
@@ -50,18 +55,37 @@ export class TodosComponent implements OnInit {
       buttons: ["Cancel", "Ok"],
     }).then(
       willDelete => {
-        if(willDelete){
-                  this.todoService.deleteTodo(id).subscribe(res => {
-          this.toastr.success("Todo deleted successfully!");
-    
-          this.getTodos()
-        }, err => {
-          this.toastr.error(err);
-          this.errMsg = "Error happened.";
-        })
+        if (willDelete) {
+          this.todoService.deleteTodo(id).subscribe(res => {
+            this.toastr.success("Todo deleted successfully!");
+            this.getTodos()
+          }, err => {
+            this.toastr.error(err);
+            this.errMsg = "Error happened.";
+          })
         }
       }
     );
+  }
+
+  onSearchTodo() {
+    this.todoService.getTodos(this.needle.toLowerCase()).subscribe(
+      data => { 
+        this.todos = data;
+        this.searchResultBanner = true;
+        this.searchResultCount = this.todos.length;
+      }
+    );
+  }
+
+  onSearchInputChange(e){
+    this.needle = e;
+
+    if(e.length === 0){
+      this.searchResultBanner = false;
+      this.searchResultCount = 0;
+      this.getTodos();
+    }
   }
 }
 

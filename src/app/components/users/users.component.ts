@@ -16,12 +16,15 @@ export class UsersComponent implements OnInit {
 
   users: User[];
 
+  needle: string = null;
+
   accessRoles = Utils.accessRoles;
+  searchResultBanner: boolean = false;
+  searchResultCount: number = 0;
 
   constructor(private userService: UserService, private router: Router) { }
 
-  ngOnInit(): void {
-
+  private getUsers() {
     this.userService.getUsers().subscribe(
       data => this.users = data
     ).add(
@@ -29,12 +32,37 @@ export class UsersComponent implements OnInit {
     )
   }
 
+  ngOnInit(): void {
+    this.getUsers();
+  }
+
   onUserAdd() {
     this.router.navigate([`/add-user`])
   }
-  
+
   onUserEdit(id: number) {
     this.router.navigate([`/edit-user/users/${id}`])
+  }
+
+  onUserSearch() {
+    this.userService.getUsers(this.needle.toLowerCase()).subscribe(
+      data => {
+        this.users = data;
+        this.searchResultBanner = true;
+        this.searchResultCount = this.users.length;
+      }
+    );
+  }
+
+  onSearchInputChange(e) {
+    this.needle = e;
+
+    if (e.length === 0) {
+      this.searchResultBanner = false;
+      this.searchResultCount = 0;
+      this.needle = null;
+      this.getUsers();
+    }
   }
 
 }
