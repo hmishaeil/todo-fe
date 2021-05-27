@@ -20,22 +20,23 @@ export class HttpErrorInterceptor implements HttpInterceptor {
       .pipe(
         catchError((error: any) => {
           let errorMsg = '';
+
+          // Client errors
           if (error.error instanceof ErrorEvent) {
+            console.error(typeof (error))
+
             errorMsg = `CLIENT Error: ${error.error.message}`;
           }
+          // Server errors
           else if (error instanceof HttpErrorResponse) {
-
-            console.log("--------------------")
-            console.log(error)
-            console.log("--------------------")
-
             const errors = error?.error?.errors;
-
             errors?.forEach(error => {
               errorMsg += error
             });
-
             switch (error.status) {
+              case 0:
+                this.toastr.error("Connection refused.");
+                break;
               case 400:
               case 401:
               case 409:
@@ -51,8 +52,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                 this.toastr.error(error.statusText)
                 break;
             }
+            // Unknown error
           } else {
-            errorMsg = "Unknown error!";
+            errorMsg = "Unexpected error! Please contact support team.";
           }
           return throwError(errorMsg);
         })

@@ -45,7 +45,6 @@ export class TodosComponent implements OnInit {
   }
 
   onEditTodo(id: number) {
-    console.log(id)
     this.router.navigate([`edit-todo/todos/${id}`])
   }
 
