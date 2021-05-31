@@ -33,6 +33,13 @@ const routes: Routes = [
     component: EditTodoComponent, canActivate: [AuthGuard], resolve: { todo: EditTodoResolver }
   },
   { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
+  { path: 'users/:userId/todos', component: TodosComponent, canActivate: [AuthGuard] },
+  { path: 'users/:userId/todos/:todoId/edit', 
+    component: EditTodoComponent, 
+    canActivate: [AuthGuard], 
+    resolve: { todo: EditTodoResolver } 
+  },
+  { path: 'users/:userId/todos/create', component: CreateTodoComponent, canActivate: [AuthGuard] },
   {
     path: 'edit-user/users/:id',
     component: EditUserComponent, canActivate: [AuthGuard], resolve: { user: EditUserResolver }

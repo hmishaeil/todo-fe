@@ -4,67 +4,73 @@
         <div *ngIf="errMsg" class="alert-danger text-center">
             {{errMsg}}
         </div>
-        <div class="row mb-3">
-            <div class="col-6">
-                <button class="btn btn-sm btn-primary" (click)="onUserAdd()"><i class="fa fa-plus"></i></button>
+        <div *ngIf="!showUserTodos; else showTodos">
+            <div class="row mb-3">
+                <div class="col-6">
+                    <button class="btn btn-sm btn-primary" (click)="onUserAdd()"><i class="fa fa-plus"></i></button>
+                </div>
+                <div class="col-2">
+                </div>
+                <div class="col-4">
+                    <form class="d-flex" (ngSubmit)="onUserSearch()">
+                      <input class="form-control me-2 input-sm" type="search" 
+                      placeholder="Type email or role" aria-label="Search" 
+                      [ngModel]="needle" name="needle" (ngModelChange)="onSearchInputChange($event)">
+                      <button class="btn btn-outline-success" type="submit" [disabled]="!needle">Search</button>
+                    </form>
+                  </div>
             </div>
-            <div class="col-2">
-            </div>
-            <div class="col-4">
-                <form class="d-flex" (ngSubmit)="onUserSearch()">
-                  <input class="form-control me-2 input-sm" type="search" 
-                  placeholder="Type email or role" aria-label="Search" 
-                  [ngModel]="needle" name="needle" (ngModelChange)="onSearchInputChange($event)">
-                  <button class="btn btn-outline-success" type="submit" [disabled]="!needle">Search</button>
-                </form>
+            <div class="row" *ngIf="searchResultBanner">
+                <div class="col">
+                  <div class="alert alert-success" role="alert">
+                    <strong>{{searchResultCount}}</strong> user(s) found.
+                  </div>
+                </div>
               </div>
+            <br>
+            <table *ngIf="!errMsg" class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Enabled?</th>
+                        <th scope="col">Created At</th>
+                        <th scope="col">Email Verified At</th>
+                        <th scope="col">Roles</th>
+                        <th scope="col" *ngIf="accessRoles(['ADMIN'])">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of users; let userNumber = index ">
+                        <th scope="row">{{userNumber + 1}}</th>
+                        <td>{{user.username}}</td>
+                        <td>
+                            <i *ngIf="user.enabled; else notEnabled" class="fa fa-check text-success"
+                                aria-hidden="true"></i>
+                            <ng-template #notEnabled>
+                                <i class="fa fa-times text-danger" aria-hidden="true"></i>
+                            </ng-template>
+                        </td>
+                        <td>{{user.createdAt | date}}</td>
+                        <td>{{user.verifiedAt | date}}</td>
+                        <td>{{user.roles[0].name | slice:5 }}</td>
+                        <td *ngIf="accessRoles(['ADMIN'])">
+                            <span class="m-2">
+                                <i class="fa fa-pencil text-warning" aria-hidden="true" style="cursor: pointer"
+                                    (click)="onUserEdit(user.id)"></i>
+                            </span>
+                            <span class="m-2">
+                                <i class="fa fa-list-ol text-info" aria-hidden="true" style="cursor: pointer"
+                                    (click)="onGetUserTodos(user.id)"></i>
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <div class="row" *ngIf="searchResultBanner">
-            <div class="col">
-              <div class="alert alert-success" role="alert">
-                <strong>{{searchResultCount}}</strong> user(s) found.
-              </div>
-            </div>
-          </div>
-        <br>
-        <table *ngIf="!errMsg" class="table">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Enabled?</th>
-                    <th scope="col">Created At</th>
-                    <th scope="col">Email Verified At</th>
-                    <th scope="col">Roles</th>
-                    <th scope="col" *ngIf="accessRoles(['ADMIN'])">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let user of users; let userNumber = index ">
-                    <th scope="row">{{userNumber + 1}}</th>
-                    <td>{{user.username}}</td>
-                    <td>
-                        <i *ngIf="user.enabled; else notEnabled" class="fa fa-check text-success"
-                            aria-hidden="true"></i>
-                        <ng-template #notEnabled>
-                            <i class="fa fa-times text-danger" aria-hidden="true"></i>
-                        </ng-template>
-                    </td>
-                    <td>{{user.createdAt | date}}</td>
-                    <td>{{user.verifiedAt | date}}</td>
-                    <td>{{user.roles[0].name | slice:5 }}</td>
-                    <td *ngIf="accessRoles(['ADMIN'])">
-                        <span class="m-2">
-                            <i class="fa fa-pencil text-warning" aria-hidden="true" style="cursor: pointer"
-                                (click)="onUserEdit(user.id)"></i>
-                        </span>
-                        <span class="m-2">
-                            <i class="fa fa-list-ol text-info" aria-hidden="true" style="cursor: pointer"
-                                (click)="onUserEdit(user.id)"></i>
-                        </span>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <ng-template #showTodos>
+            <app-todos [todos]="todos"></app-todos>
+        </ng-template>
+
     </div>
 </div>

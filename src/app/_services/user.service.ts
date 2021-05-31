@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Todo } from '../models/Todo.model';
 import { User } from '../models/User.model';
 import { AddUserRequest } from '../_requests/add_user.request';
 
@@ -17,6 +18,10 @@ export class UserService {
 
   getUser(id: number): Observable<User> {
     return this.httpClient.get<User>(this.url + `/${id}`);
+  }
+
+  getUserTodos(id: number): Observable<Todo[]> {
+    return this.httpClient.get<Todo[]>(this.url + `/${id}/todos`);
   }
 
   getUsers(searchTerm: string = null): Observable<User[]> {

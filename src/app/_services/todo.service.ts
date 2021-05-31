@@ -8,35 +8,34 @@ import { Todo } from '../models/Todo.model';
 })
 export class TodoService {
 
-  url = environment.apiUrl + "/todos";
+  url = (userId: number) => environment.apiUrl + `/users/${userId}/todos`;
 
   constructor(private httpClient: HttpClient) { }
 
-  getTodos(searchTerm: string = null) {
+  getTodos(userId: number, searchTerm: string = null) {
 
-    let todosUrl = this.url;
-
+    let myUrl = this.url(userId);    
     if (searchTerm !== null) {
-      todosUrl += `?searchTerm=${searchTerm}`
+      myUrl += `?searchTerm=${searchTerm}`
     }
 
-    return this.httpClient.get<Todo[]>(todosUrl);
+    return this.httpClient.get<Todo[]>(myUrl);
   }
 
-  getTodo(id: number) {
-    return this.httpClient.get<Todo>(this.url + `/${id}`);
+  getTodo(userId, todoId) {
+    return this.httpClient.get<Todo>(this.url(userId) + `/${todoId}`);
   }
 
-  createTodo(todo: Todo) {
-    return this.httpClient.post<Todo>(this.url, todo);
+  createTodo(userId, todo: Todo) {
+    return this.httpClient.post<Todo>(this.url(userId), todo);
   }
 
-  updateTodo(todo: Todo) {
-    return this.httpClient.put<Todo>(this.url, todo);
+  updateTodo(userId, todo: Todo) {
+    return this.httpClient.put<Todo>(this.url(userId) + `/${todo.id}`, todo);
   }
 
-  deleteTodo(id: number) {
-    return this.httpClient.delete(this.url + `/${id}`);
+  deleteTodo(userId, id: number) {
+    return this.httpClient.delete(this.url(userId) + `/${id}`);
   }
 
 }

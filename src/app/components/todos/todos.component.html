@@ -38,7 +38,7 @@
           <th scope="col">Actions</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody *ngIf="todos.length">
         <tr *ngFor="let todo of todos; let todoNumber = index ">
           <th scope="row">{{todoNumber + 1}}</th>
           <td>{{todo.name | titlecase}}</td>
@@ -56,6 +56,15 @@
               <i class="fa fa-trash text-danger" aria-hidden="true" style="cursor: pointer"
                 (click)="onDeleteTodo(todo.id)"></i>
             </span>
+          </td>
+        </tr>
+      </tbody>
+      <tbody *ngIf="todos.length == 0">
+        <tr>
+          <td colspan="6">
+            <div class="alert text-center">
+              No record to show.
+            </div>
           </td>
         </tr>
       </tbody>

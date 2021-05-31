@@ -19,6 +19,8 @@ export class EditTodoResolver implements Resolve<Todo> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Todo> {
 
-    return this.todoService.getTodo(+route.paramMap.get('id'));
+    let userId = route.paramMap.get('userId');
+    let todoId = route.paramMap.get('todoId');
+    return this.todoService.getTodo(userId, todoId);
   }
 }

@@ -19,17 +19,17 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     return next.handle(request)
       .pipe(
         catchError((error: any) => {
-          let errorMsg = '';
+          let errorMsg = "Unexpected error! Please contact support team.";
 
           // Client errors
           if (error.error instanceof ErrorEvent) {
             console.error(typeof (error))
-
             errorMsg = `CLIENT Error: ${error.error.message}`;
           }
           // Server errors
           else if (error instanceof HttpErrorResponse) {
             const errors = error?.error?.errors;
+            errorMsg = "";
             errors?.forEach(error => {
               errorMsg += error
             });
@@ -52,9 +52,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                 this.toastr.error(error.statusText)
                 break;
             }
-            // Unknown error
-          } else {
-            errorMsg = "Unexpected error! Please contact support team.";
           }
           return throwError(errorMsg);
         })

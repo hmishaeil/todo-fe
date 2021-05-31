@@ -25,6 +25,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   msg = "Your password has been reset successfully. You can login with your new password now."
   sub: any;
 
+  userId: string;
+
   ngOnInit(): void {
 
     this.sub = this.activeRoute.queryParams
@@ -47,7 +49,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.authService.login(loginReq).
       subscribe(
         () => {
-          this.router.navigate(['/todos'])
+          this.userId = localStorage.getItem('userId');
+          this.router.navigate([`/users/${this.userId}/todos`])
         },
         err => {
           this.errMsg = err.error

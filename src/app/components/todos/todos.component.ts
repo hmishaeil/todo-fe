@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TodoService } from '../../_services/todo.service';
 import { Todo } from 'src/app/models/Todo.model';
 import { ToastrService } from 'ngx-toastr';
@@ -13,10 +13,9 @@ import swal from 'sweetalert';
 
 export class TodosComponent implements OnInit {
 
-  todos: Todo[] = [];
+  @Input() todos: Todo[] = [];
   errMsg = null;
   resMsg = null;
-  user: string;
 
   loading: boolean = true;
 
@@ -25,14 +24,28 @@ export class TodosComponent implements OnInit {
   searchResultCount: number = 0;
   searchResultBanner: boolean = false;
 
-  constructor(private todoService: TodoService, private router: Router, private toastr: ToastrService) { }
+  userId: number = 0;
+  todoId: number = 0;
+
+  constructor(private todoService: TodoService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.getTodos();
+
+    this.activatedRoute.params.subscribe(
+      url => {
+        this.userId = url.userId;
+        this.todoId = url.todoId;
+      }
+    )
+
+    this.getTodos(this.userId);
   }
 
-  private getTodos() {
-    this.todoService.getTodos().subscribe(todos => {
+  private getTodos(userId: number) {
+    this.todoService.getTodos(userId).subscribe(todos => {
       this.todos = todos;
     }, error => {
       console.error(error)
@@ -41,11 +54,12 @@ export class TodosComponent implements OnInit {
   }
 
   onAdd() {
-    this.router.navigate([`create-todo`])
+    this.router.navigate([`users/${this.userId}/todos/create`])
   }
 
-  onEditTodo(id: number) {
-    this.router.navigate([`edit-todo/todos/${id}`])
+  onEditTodo(todoId) {
+    console.log(`/users/${this.userId}/todos/${todoId}/edit`);
+    this.router.navigate([`/users/${this.userId}/todos/${todoId}/edit`])
   }
 
   onDeleteTodo(id: number) {
@@ -55,9 +69,9 @@ export class TodosComponent implements OnInit {
     }).then(
       willDelete => {
         if (willDelete) {
-          this.todoService.deleteTodo(id).subscribe(res => {
+          this.todoService.deleteTodo(this.userId, id).subscribe(res => {
             this.toastr.success("Todo deleted successfully!");
-            this.getTodos()
+            this.getTodos(this.userId)
           }, err => {
             this.toastr.error(err);
             this.errMsg = "Error happened.";
@@ -68,8 +82,8 @@ export class TodosComponent implements OnInit {
   }
 
   onSearchTodo() {
-    this.todoService.getTodos(this.needle.toLowerCase()).subscribe(
-      data => { 
+    this.todoService.getTodos(this.userId, this.needle.toLowerCase()).subscribe(
+      data => {
         this.todos = data;
         this.searchResultBanner = true;
         this.searchResultCount = this.todos.length;
@@ -77,13 +91,13 @@ export class TodosComponent implements OnInit {
     );
   }
 
-  onSearchInputChange(e){
+  onSearchInputChange(e) {
     this.needle = e;
 
-    if(e.length === 0){
+    if (e.length === 0) {
       this.searchResultBanner = false;
       this.searchResultCount = 0;
-      this.getTodos();
+      this.getTodos(this.userId);
     }
   }
 }

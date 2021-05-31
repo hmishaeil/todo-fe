@@ -12,6 +12,7 @@ import { TodoService } from '../../_services/todo.service';
 export class EditTodoComponent implements OnInit {
 
   todo: Todo;
+  userId;
 
   constructor(private activatedRoute: ActivatedRoute,
     private todoService: TodoService,
@@ -23,12 +24,13 @@ export class EditTodoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userId = localStorage.getItem("userId")
   }
 
   onUpdate() {
-    this.todoService.updateTodo(this.todo).subscribe(res => {
+    this.todoService.updateTodo(this.userId, this.todo).subscribe(res => {
       this.toastr.success("Todo updated successfully!")
-      this.router.navigate(['todos'])
+      this.router.navigate([`/users/${this.userId}/todos`])
     });
   }
 }
