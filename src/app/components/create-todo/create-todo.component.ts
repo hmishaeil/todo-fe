@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Todo } from 'src/app/models/Todo.model';
+import { AuthService } from 'src/app/_services/auth.service';
 import { TodoService } from '../../_services/todo.service';
 
 @Component({
@@ -14,11 +15,14 @@ export class CreateTodoComponent implements OnInit {
   todo: Todo;
   userId;
 
-  constructor(private todoService: TodoService, 
-    private router: Router, private toastr: ToastrService) { }
+  constructor(
+    private todoService: TodoService, 
+    private authService: AuthService,
+    private router: Router, 
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.userId = localStorage.getItem("userId");
+    this.userId = this.authService.USER$.value.userId;
     this.todo = new Todo;
   }
 

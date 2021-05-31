@@ -4,6 +4,8 @@ import { TodoService } from '../../_services/todo.service';
 import { Todo } from 'src/app/models/Todo.model';
 import { ToastrService } from 'ngx-toastr';
 import swal from 'sweetalert';
+import { AuthService } from 'src/app/_services/auth.service';
+import { UtilService } from 'src/app/_services/util.service';
 
 @Component({
   selector: 'app-todos',
@@ -13,7 +15,7 @@ import swal from 'sweetalert';
 
 export class TodosComponent implements OnInit {
 
-  @Input() todos: Todo[] = [];
+  todos: Todo[] = [];
   errMsg = null;
   resMsg = null;
 
@@ -27,7 +29,9 @@ export class TodosComponent implements OnInit {
   userId: number = 0;
   todoId: number = 0;
 
-  constructor(private todoService: TodoService,
+  constructor(
+    private todoService: TodoService,
+    private authService: AuthService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private toastr: ToastrService) { }
@@ -100,6 +104,12 @@ export class TodosComponent implements OnInit {
       this.getTodos(this.userId);
     }
   }
+
+  areTodosMine() {
+    let loggedInUserId = this.authService.USER$.value.userId;
+    return (loggedInUserId == this.userId.toString())
+  }
+
 }
 
 

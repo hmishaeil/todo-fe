@@ -23,7 +23,7 @@ export class TodoService {
   }
 
   getTodo(userId, todoId) {
-    return this.httpClient.get<Todo>(this.url(userId) + `/${todoId}`);
+    return this.httpClient.get<Todo>(this.url(+userId) + `/${todoId}`);
   }
 
   createTodo(userId, todo: Todo) {

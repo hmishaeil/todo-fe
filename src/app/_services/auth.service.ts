@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { Auth } from '../models/Auth.model';
 import { InitResetPasswordRequest } from '../_requests/init_reset_password.request';
 import { LoginRequest } from '../_requests/login.request';
 import { ResetPasswordRequest } from '../_requests/reset_password.request';
@@ -13,6 +15,8 @@ import { SignUpResponse } from '../_responses/signup.response';
   providedIn: 'root'
 })
 export class AuthService {
+
+  USER$: BehaviorSubject<Auth> = new BehaviorSubject(null);
 
   constructor(private httpClient: HttpClient) { }
 
@@ -27,11 +31,14 @@ export class AuthService {
 
   login(req: LoginRequest) {
     return this.httpClient.post<LoginResponse>(environment.apiUrl + "/login", req).pipe(
-      map((res) => {
-        localStorage.setItem('user', res.username);
-        localStorage.setItem('token', res.token);
-        localStorage.setItem('role', res.role);
-        localStorage.setItem('userId', res.userId);
+      map(res => {
+        const auth = new Auth();
+        auth.username = res.username;
+        auth.userId = res.userId;
+        auth.token = res.token;
+        auth.role = res.role;
+
+        this.USER$.next(auth);
       })
     );
   }
@@ -49,10 +56,7 @@ export class AuthService {
   }
 
   isLoggedIn() {
-    const token = localStorage.getItem("token");
-    const username = localStorage.getItem("user");
-
-    return !(token === null || username === null)
+    return this.USER$.value
   }
 
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Todo } from 'src/app/models/Todo.model';
+import { AuthService } from 'src/app/_services/auth.service';
 import { TodoService } from '../../_services/todo.service';
 
 @Component({
@@ -14,8 +15,10 @@ export class EditTodoComponent implements OnInit {
   todo: Todo;
   userId;
 
-  constructor(private activatedRoute: ActivatedRoute,
+  constructor(
+    private activatedRoute: ActivatedRoute,
     private todoService: TodoService,
+    private authService: AuthService,
     private router: Router,
     private toastr: ToastrService) {
     this.activatedRoute.data.subscribe(res => {
@@ -24,7 +27,7 @@ export class EditTodoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userId = localStorage.getItem("userId")
+    this.userId = this.authService.USER$.value.userId;
   }
 
   onUpdate() {

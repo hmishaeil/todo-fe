@@ -4,6 +4,8 @@
         "modules",
         "ngx",
         "node",
+        "swal",
+        "sweetalert",
         "titlecase",
         "toastr"
     ]

@@ -35,7 +35,7 @@
           <th scope="col">Description</th>
           <th scope="col">Done</th>
           <th scope="col">Target Date</th>
-          <th scope="col">Actions</th>
+          <th scope="col" *ngIf="areTodosMine()">Actions</th>
         </tr>
       </thead>
       <tbody *ngIf="todos.length">
@@ -47,7 +47,7 @@
             <i *ngIf="todo.done" class="fa fa-check text-success" aria-hidden="true"></i>
           </td>
           <td>{{todo.targetDate | date}}</td>
-          <td>
+          <td *ngIf="areTodosMine()">
             <span class="m-2">
               <i class="fa fa-pencil text-warning" aria-hidden="true" style="cursor: pointer"
                 (click)="onEditTodo(todo.id)"></i>

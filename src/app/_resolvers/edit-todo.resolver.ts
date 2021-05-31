@@ -21,6 +21,10 @@ export class EditTodoResolver implements Resolve<Todo> {
 
     let userId = route.paramMap.get('userId');
     let todoId = route.paramMap.get('todoId');
+
+    console.log('from resolver')
+    console.log(userId)
+    console.log(todoId)
     return this.todoService.getTodo(userId, todoId);
   }
 }

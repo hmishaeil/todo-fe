@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import Utils from 'src/app/helpers/utils';
 import { Todo } from 'src/app/models/Todo.model';
 import { User } from 'src/app/models/User.model';
 import { UserService } from 'src/app/_services/user.service';
+import { UtilService } from 'src/app/_services/util.service';
 
 @Component({
   selector: 'app-users',
@@ -22,11 +22,13 @@ export class UsersComponent implements OnInit {
   showUserTodos: boolean = false;
   todos: Todo[] =[];
 
-  accessRoles = Utils.accessRoles;
   searchResultBanner: boolean = false;
   searchResultCount: number = 0;
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(
+    private userService: UserService, 
+    private router: Router, 
+    private utilService: UtilService) { }
 
   private getUsers() {
     this.userService.getUsers().subscribe(
@@ -71,12 +73,10 @@ export class UsersComponent implements OnInit {
 
   onGetUserTodos(userId: number){
     this.router.navigate([`/users/${userId}/todos`])
-    // this.userService.getUserTodos(userId).subscribe(
-    //   data => {
-    //     this.showUserTodos = true;
-    //     this.todos = data
-    //   }
-    // )
+  }
+
+  accessRoles(roles: []){
+    return this.utilService.accessRoles(roles);
   }
 
 }
