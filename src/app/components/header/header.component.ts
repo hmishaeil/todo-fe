@@ -42,8 +42,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   getClassPerUserRole() {
     const role = this.authService.USER$.value?.role || null;
-
-    console.log(role)
     let className;
 
     switch (role) {

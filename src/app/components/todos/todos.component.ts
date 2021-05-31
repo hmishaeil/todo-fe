@@ -62,7 +62,6 @@ export class TodosComponent implements OnInit {
   }
 
   onEditTodo(todoId) {
-    console.log(`/users/${this.userId}/todos/${todoId}/edit`);
     this.router.navigate([`/users/${this.userId}/todos/${todoId}/edit`])
   }
 

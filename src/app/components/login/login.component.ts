@@ -1,5 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { Subscription } from 'rxjs';
 import { LoginRequest } from 'src/app/_requests/login.request';
 import { AuthService } from '../../_services/auth.service';
 
@@ -13,8 +15,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private activeRoute: ActivatedRoute,
     private router: Router,
-    private authService: AuthService) { }
-
+    private authService: AuthService,
+    private cookieService: CookieService) { }
 
   username: string;
   password: string;
@@ -23,7 +25,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   showSuccessfulResetPasswordMsg = 0;
   msg = "Your password has been reset successfully. You can login with your new password now."
-  sub: any;
+  sub: Subscription;
+
+  rememberMe: boolean = this.cookieService.check('todo_app_username');
 
   ngOnInit(): void {
 
@@ -32,6 +36,8 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.showSuccessfulResetPasswordMsg = params.successfulResetPassword;
       }
       );
+
+    this.rememberMe ? this.username = this.cookieService.get('todo_app_username') : "";
   }
 
   ngOnDestroy(): void {
@@ -56,5 +62,10 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   onRequestResetPassword() {
     this.router.navigate(['request-reset-password'])
+  }
+
+  onRememberMeChange() {
+    this.rememberMe = !this.rememberMe;
+    this.rememberMe ? this.cookieService.set('todo_app_username', this.username) : this.cookieService.delete('todo_app_username')
   }
 }
