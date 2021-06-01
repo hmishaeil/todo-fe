@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import swal from 'sweetalert';
-
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-home',
@@ -31,15 +30,16 @@ export class HomeComponent implements OnInit {
   }
 
   onImageClick(imageUrl) {
-    swal({
-      content: {
-        element: "img",
-        attributes: {
-          src: imageUrl,
-          style: "max-width: 100%; max-height: 100%"
-        },
-      },
-      buttons: [false],
+    Swal.fire({
+      imageUrl: imageUrl,
+      // content: {
+      //   element: "img",
+      //   attributes: {
+      //     src: imageUrl,
+      //     style: "max-width: 100%; max-height: 100%"
+      //   },
+      // },
+      // buttons: [false],
     });
 
   }

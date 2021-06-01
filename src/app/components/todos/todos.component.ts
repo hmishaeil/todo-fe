@@ -3,10 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TodoService } from '../../_services/todo.service';
 import { Todo } from 'src/app/models/Todo.model';
 import { ToastrService } from 'ngx-toastr';
-import swal from 'sweetalert';
 import { AuthService } from 'src/app/_services/auth.service';
-import { UtilService } from 'src/app/_services/util.service';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-todos',
   templateUrl: './todos.component.html',
@@ -66,22 +64,45 @@ export class TodosComponent implements OnInit {
   }
 
   onDeleteTodo(id: number) {
-    swal("Are you sure to delete the todo?", {
-      dangerMode: true,
-      buttons: ["Cancel", "Ok"],
-    }).then(
-      willDelete => {
-        if (willDelete) {
-          this.todoService.deleteTodo(this.userId, id).subscribe(res => {
-            this.toastr.success("Todo deleted successfully!");
-            this.getTodos(this.userId)
-          }, err => {
-            this.toastr.error(err);
-            this.errMsg = "Error happened.";
-          })
-        }
+    // swal("Are you sure to delete the todo?", {
+    //   dangerMode: true,
+    //   buttons: ["Cancel", "Ok"],
+    // }).then(
+    //   willDelete => {
+    //     if (willDelete) {
+    //       this.todoService.deleteTodo(this.userId, id).subscribe(res => {
+    //         this.toastr.success("Todo deleted successfully!");
+    //         this.getTodos(this.userId)
+    //       }, err => {
+    //         this.toastr.error(err);
+    //         this.errMsg = "Error happened.";
+    //       })
+    //     }
+    //   }
+    // );
+
+    Swal.fire({
+      title: 'Are you sure to delete the todo?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: `Ok`,
+      denyButtonText: `Don't save`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        Swal.fire('Saved!', '', 'success')
+        this.todoService.deleteTodo(this.userId, id).subscribe(res => {
+          this.toastr.success("Todo deleted successfully!");
+          this.getTodos(this.userId)
+        }, err => {
+          this.toastr.error(err);
+          this.errMsg = "Error happened.";
+        })
+      } else if (result.isDenied) {
+        Swal.fire('Changes are not saved', '', 'info')
       }
-    );
+    })
+
   }
 
   onSearchTodo() {

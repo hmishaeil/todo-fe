@@ -4,11 +4,6 @@ import { ToastrService } from 'ngx-toastr';
 import { InitResetPasswordRequest } from 'src/app/_requests/init_reset_password.request';
 import { AuthService } from 'src/app/_services/auth.service';
 
-import * as _swal from 'sweetalert';
-import { SweetAlert } from 'sweetalert/typings/core';
-
-const swal: SweetAlert = _swal as any;
-
 @Component({
   selector: 'app-request-reset-password',
   templateUrl: './request-reset-password.component.html',
@@ -33,17 +28,6 @@ export class RequestRestPasswordComponent implements OnInit {
       () => {
         this.resetPasswordRequestEmailed = true,
         sessionStorage.setItem("username", this.username)
-      },
-      error => {
-
-        // swal({
-        //   text: "Make sure you entered the proper email address.",
-        //   icon: "warning",
-        //   buttons: {
-        //     confirm: { text: 'Ok', className: 'btn btn-primary' },
-        //   },
-        // });
-
       });
   }
 }
