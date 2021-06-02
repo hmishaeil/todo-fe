@@ -6,25 +6,35 @@
         <p *ngIf="showSuccessfulResetPasswordMsg == 1" class="alert alert-success">
             {{msg}}
         </p>
-        <form>
+        <form #loginForm="ngForm" (ngSubmit)="onLogin()">
             <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                    placeholder="Enter email" [(ngModel)]="username" name="email">
+                <label for="emailInput">Email address</label>
+                <input type="email" class="form-control" id="emailInput" aria-describedby="emailHelp"
+                    placeholder="Enter email" [(ngModel)]="username" name="email" required email
+                    #emailInput="ngModel">
             </div>
             <div class="form-check mt-2 mx-1">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1" [checked]="rememberMe" (change)="onRememberMeChange()">
-                <label class="form-check-label" for="exampleCheck1">Remember me</label>
+                <input type="checkbox" class="form-check-input" [checked]="rememberMe"
+                    (change)="onRememberMeChange()" id="rememberMe">
+                <label class="form-check-label" for="rememberMe">Remember me</label>
             </div>
+            <ul *ngIf="!emailInput.valid && emailInput.touched" class="text-danger">
+                <li *ngIf="emailInput.errors?.required">Email field is required.</li>
+                <li *ngIf="emailInput.errors?.email">Email format is required.</li>
+            </ul>
             <br>
             <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"
-                    [(ngModel)]="password" name="password">
+                <input type="password" class="form-control" id="passwordInput" placeholder="Password"
+                    [(ngModel)]="password" name="password" required #passwordInput="ngModel">
             </div>
+            <ul *ngIf="!passwordInput.valid && passwordInput.touched" class="text-danger">
+                <li *ngIf="passwordInput.errors?.required">Password field is required.</li>
+            </ul>
             <br>
 
-            <button type="submit" (click)="onLogin()" class="btn btn-sm btn-success">Login</button>
+            <button type="submit" class="btn btn-sm btn-success"
+            [disabled]="loginForm.form.invalid" >Login</button>
 
         </form>
         <hr>

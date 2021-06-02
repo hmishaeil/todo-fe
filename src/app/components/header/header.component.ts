@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
+import { Auth } from 'src/app/models/Auth.model';
 import { AuthService } from 'src/app/_services/auth.service';
 import { UtilService } from 'src/app/_services/util.service';
 
@@ -12,9 +13,7 @@ import { UtilService } from 'src/app/_services/util.service';
 export class HeaderComponent implements OnInit, OnDestroy {
 
   sub: Subscription;
-
-  userId;
-  username;
+  user: Auth = null;
 
   constructor(public authService: AuthService,
     private utilService: UtilService,
@@ -26,13 +25,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.sub = this.authService.USER$.asObservable().subscribe(data => {
-      this.userId = data?.userId
-      this.username = data?.username
+      this.user = data;
     })
   }
 
   onLogout() {
-    this.authService.USER$.next(null);
+    this.authService.logout();
     this.router.navigate(['/'])
   }
 
@@ -41,12 +39,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   getClassPerUserRole() {
-    const role = this.authService.USER$.value?.role || null;
+    const role = this.user?.role || null;
     let className;
 
     switch (role) {
       case "ROLE_ADMIN":
-        className = "bg-success"
+        className = "bg-danger"
         break;
       case "ROLE_SUPPORT":
         className = "bg-info"

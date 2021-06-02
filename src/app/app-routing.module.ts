@@ -15,6 +15,7 @@ import { TodosComponent } from './components/todos/todos.component';
 import { UsersComponent } from './components/users/users.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { PermissionGuard } from './_guards/permission.guard';
 import { EditTodoResolver } from './_resolvers/edit-todo.resolver';
 import { EditUserResolver } from './_resolvers/edit-user.resolver';
 
@@ -27,24 +28,48 @@ const routes: Routes = [
   { path: 'request-reset-password', component: RequestRestPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'todos', component: TodosComponent, canActivate: [AuthGuard] },
-  { path: 'create-todo', component: CreateTodoComponent, canActivate: [AuthGuard] },
   {
-    path: 'edit-todo/todos/:id',
-    component: EditTodoComponent, canActivate: [AuthGuard], resolve: { todo: EditTodoResolver }
-  },
-  { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
-  { path: 'users/:userId/todos', component: TodosComponent, canActivate: [AuthGuard] },
-  { path: 'users/:userId/todos/:todoId/edit', 
-    component: EditTodoComponent, 
+    path: 'users', 
     canActivate: [AuthGuard], 
-    resolve: { todo: EditTodoResolver } 
+    children: [
+      {
+        path: '', 
+        component: UsersComponent,
+        canActivate: [PermissionGuard],
+        data: {
+          role: 'ROLE_ADMIN'
+        },
+      },
+      {
+        path: ':userId/edit',
+        component: EditUserComponent, 
+        resolve: { user: EditUserResolver },
+        canActivate: [PermissionGuard],
+        data: {
+          role: 'ROLE_ADMIN'
+        },
+      },
+      { path: 'add', 
+        component: AddUserComponent,
+        canActivate: [PermissionGuard],
+        data: {
+          role: 'ROLE_ADMIN'
+        },
+      },
+      {
+        path: ':userId/todos', 
+        component: TodosComponent,
+      },
+      {
+        path: ':userId/todos/:todoId/edit',
+        component: EditTodoComponent,
+        resolve: { todo: EditTodoResolver }
+      },
+      { path: ':userId/todos/create', 
+        component: CreateTodoComponent 
+      },
+    ]
   },
-  { path: 'users/:userId/todos/create', component: CreateTodoComponent, canActivate: [AuthGuard] },
-  {
-    path: 'edit-user/users/:id',
-    component: EditUserComponent, canActivate: [AuthGuard], resolve: { user: EditUserResolver }
-  },
-  { path: 'add-user', component: AddUserComponent },
   { path: '**', component: ErrorComponent },
 ];
 

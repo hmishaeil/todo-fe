@@ -27,7 +27,7 @@ export class AuthInterceptor implements HttpInterceptor {
     if (!_.some(excludedUrls, (urlKeyword) => _.includes(request.url, urlKeyword))) {
       request = request.clone({
         setHeaders:
-          { Authorization: 'Bearer ' + this.authService.USER$.value.token }
+          { Authorization: 'Bearer ' + this.authService.USER$.value?.token }
       });
 
     }

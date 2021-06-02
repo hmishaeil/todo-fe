@@ -32,16 +32,9 @@ export class HomeComponent implements OnInit {
   onImageClick(imageUrl) {
     Swal.fire({
       imageUrl: imageUrl,
-      // content: {
-      //   element: "img",
-      //   attributes: {
-      //     src: imageUrl,
-      //     style: "max-width: 100%; max-height: 100%"
-      //   },
-      // },
-      // buttons: [false],
+      showCancelButton: false,
+      showConfirmButton: false
     });
-
   }
 
 }

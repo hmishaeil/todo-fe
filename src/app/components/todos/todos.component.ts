@@ -64,33 +64,20 @@ export class TodosComponent implements OnInit {
   }
 
   onDeleteTodo(id: number) {
-    // swal("Are you sure to delete the todo?", {
-    //   dangerMode: true,
-    //   buttons: ["Cancel", "Ok"],
-    // }).then(
-    //   willDelete => {
-    //     if (willDelete) {
-    //       this.todoService.deleteTodo(this.userId, id).subscribe(res => {
-    //         this.toastr.success("Todo deleted successfully!");
-    //         this.getTodos(this.userId)
-    //       }, err => {
-    //         this.toastr.error(err);
-    //         this.errMsg = "Error happened.";
-    //       })
-    //     }
-    //   }
-    // );
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-outline-danger',
+        cancelButton: 'btn btn-outline-secondary mx-3',
+      },
+      buttonsStyling: false
+    })
 
-    Swal.fire({
-      title: 'Are you sure to delete the todo?',
-      showDenyButton: true,
+    swalWithBootstrapButtons.fire({
+      html: '<p class="text-dark">Are you sure to delete the todo?</p>',
       showCancelButton: true,
-      confirmButtonText: `Ok`,
-      denyButtonText: `Don't save`,
+      confirmButtonText: `Delete`,
     }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        Swal.fire('Saved!', '', 'success')
         this.todoService.deleteTodo(this.userId, id).subscribe(res => {
           this.toastr.success("Todo deleted successfully!");
           this.getTodos(this.userId)
@@ -98,8 +85,6 @@ export class TodosComponent implements OnInit {
           this.toastr.error(err);
           this.errMsg = "Error happened.";
         })
-      } else if (result.isDenied) {
-        Swal.fire('Changes are not saved', '', 'info')
       }
     })
 
@@ -126,7 +111,7 @@ export class TodosComponent implements OnInit {
   }
 
   areTodosMine() {
-    let loggedInUserId = this.authService.USER$.value.userId;
+    let loggedInUserId = this.authService.USER$.value?.userId;
     return (loggedInUserId == this.userId.toString())
   }
 

@@ -22,12 +22,11 @@
                         <a class="nav-link" routerLink="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" routerLink="/users/{{userId}}/todos"
-                            *ngIf="authService.isLoggedIn()">Todos</a>
+                        <a class="nav-link" routerLink="/users/{{user?.userId}}/todos" *ngIf="user">Todos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" routerLink="/users"
-                            *ngIf="authService.isLoggedIn() && accessRoles(['ADMIN', 'SUPPORT'])">Users</a>
+                            *ngIf="user && accessRoles(['ADMIN', 'SUPPORT'])">Users</a>
                     </li>
                 </ul>
                 <!-- Left links -->
@@ -35,14 +34,14 @@
             <!-- Collapsible wrapper -->
             <!-- Right elements -->
             <div class="d-flex align-items-center">
-                <a class="btn btn-sm btn-outline-success me-3" routerLink="/login" *ngIf="!authService.isLoggedIn()">
+                <a class="btn btn-sm btn-outline-success me-3" routerLink="/login" *ngIf="!user">
                     Login
                 </a>
-                <a class="btn btn-sm btn-outline-primary me-3" routerLink="/signup" *ngIf="!authService.isLoggedIn()">
+                <a class="btn btn-sm btn-outline-primary me-3" routerLink="/signup" *ngIf="!user">
                     Signup
                 </a>
-                <span class="badge mx-3" [ngClass]="getClassPerUserRole()">{{username}}</span>
-                <a class="btn btn-sm btn-outline-secondary me-3" (click)="onLogout()" *ngIf="authService.isLoggedIn()">
+                <span class="badge mx-3" [ngClass]="getClassPerUserRole()">{{user?.username}}</span>
+                <a class="btn btn-sm btn-outline-secondary me-3" (click)="onLogout()" *ngIf="user">
                     Logout
                 </a>
             </div>

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Todo } from 'src/app/models/Todo.model';
 import { User } from 'src/app/models/User.model';
 import { UserService } from 'src/app/_services/user.service';
 import { UtilService } from 'src/app/_services/util.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-users',
@@ -26,8 +27,9 @@ export class UsersComponent implements OnInit {
   searchResultCount: number = 0;
 
   constructor(
-    private userService: UserService, 
     private router: Router, 
+    private activatedRoute: ActivatedRoute,
+    private userService: UserService, 
     private utilService: UtilService) { }
 
   private getUsers() {
@@ -39,15 +41,15 @@ export class UsersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getUsers();
+    this.getUsers()
   }
 
   onUserAdd() {
-    this.router.navigate([`/add-user`])
+    this.router.navigate([`/users/add`])
   }
 
   onUserEdit(id: number) {
-    this.router.navigate([`/edit-user/users/${id}`])
+    this.router.navigate([`/users/${id}/edit`])
   }
 
   onUserSearch() {

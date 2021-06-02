@@ -1,8 +1,0 @@
-import { AuthService } from "../_services/auth.service";
-
-export default class Utils {
-
-    constructor(private authService: AuthService){}
-
-    static 
-}

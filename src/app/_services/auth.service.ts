@@ -14,11 +14,14 @@ import { SignUpResponse } from '../_responses/signup.response';
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
 
-  USER$: BehaviorSubject<Auth> = new BehaviorSubject(null);
+  auth: Auth = JSON.parse(localStorage.getItem('auth'));
 
-  constructor(private httpClient: HttpClient) { }
+  USER$: BehaviorSubject<Auth> = new BehaviorSubject(this.auth);
+
+  constructor(private httpClient: HttpClient) {}
 
   signUp(req: SignUpRequest) {
     return this.httpClient.post<SignUpResponse>(environment.apiUrl + "/signup", req).pipe(map(res => {
@@ -32,15 +35,22 @@ export class AuthService {
   login(req: LoginRequest) {
     return this.httpClient.post<LoginResponse>(environment.apiUrl + "/login", req).pipe(
       map(res => {
-        const auth = new Auth();
-        auth.username = res.username;
-        auth.userId = res.userId;
-        auth.token = res.token;
-        auth.role = res.role;
+        const auth: Auth = {
+          userId: res.userId,
+          username: res.username,
+          token: res.token,
+          role: res.role
+        }
 
+        localStorage.setItem('auth', JSON.stringify(auth));
         this.USER$.next(auth);
       })
     );
+  }
+
+  logout() {
+    localStorage.removeItem('auth');
+    this.USER$.next(null);
   }
 
   requestResetPassword(req: InitResetPasswordRequest) {
