@@ -134,8 +134,8 @@
         <i><strong>Screenshots</strong></i>
 
         <div class="row my-5">
-            <div class="col-6 p-5 text-center border-bottom" style="cursor: pointer;" *ngFor="let image of images">
-                <img [src]="image.url" [alt]="image.alt" placement="left" style="max-width: 50%;"
+            <div class="col-6 p-5 text-center border-bottom" *ngFor="let image of images">
+                <img [src]="image.url" [alt]="image.alt" placement="left" style="max-width: 50%; cursor: pointer;"
                     (click)="onImageClick(image.url)">
             </div>
         </div>
