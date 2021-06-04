@@ -14,7 +14,6 @@ import Swal from 'sweetalert2';
 export class TodosComponent implements OnInit {
 
   todos: Todo[] = [];
-  errMsg = null;
   resMsg = null;
 
   loading: boolean = true;
@@ -82,9 +81,6 @@ export class TodosComponent implements OnInit {
         this.todoService.deleteTodo(this.userId, id).subscribe(res => {
           this.toastr.success("Todo deleted successfully!");
           this.getTodos(this.userId)
-        }, err => {
-          this.toastr.error(err);
-          this.errMsg = "Error happened.";
         })
       }
     })

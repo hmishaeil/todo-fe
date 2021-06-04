@@ -1,9 +1,6 @@
 <div class="row mt-5">
   <div class="col-6 m-auto">
     <app-spinner *ngIf="loading"></app-spinner>
-    <div *ngIf="errMsg" class="alert-danger text-center">
-      {{errMsg}}
-    </div>
     <div *ngIf="resMsg" class="alert-success text-center">
       {{resMsg}}
     </div>
@@ -27,7 +24,7 @@
       </div>
     </div>
     <br>
-    <table *ngIf="!errMsg" class="table">
+    <table class="table">
       <thead>
         <tr>
           <th scope="col">#</th>
@@ -41,7 +38,7 @@
       <tbody *ngIf="todos.length">
         <tr *ngFor="let todo of todos; let todoNumber = index ">
           <th scope="row">{{todoNumber + 1}}
-            <i class="fa fa-lg fa-arrow-circle-up text-danger mx-1" *ngIf="todo.byAdmin"></i>
+            <i class="fa fa-arrow-circle-up text-danger mx-1" *ngIf="todo.byAdmin"></i>
           </th>
           <td>{{todo.name | titlecase}}</td>
           <td>{{todo.description | slice:0:10 | titlecase }}{{todo.description.length > 10 ? "..." : ""}}</td>
