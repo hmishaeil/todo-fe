@@ -43,10 +43,9 @@ export class TodosComponent implements OnInit {
       url => {
         this.userId = url.userId;
         this.todoId = url.todoId;
+        this.getTodos(this.userId);
       }
     )
-
-    this.getTodos(this.userId);
   }
 
   private getTodos(userId: number) {
