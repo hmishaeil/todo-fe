@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Todo } from 'src/app/models/Todo.model';
-import { AuthService } from 'src/app/_services/auth.service';
 import { TodoService } from '../../_services/todo.service';
 
 @Component({
@@ -16,17 +15,21 @@ export class CreateTodoComponent implements OnInit {
   userId;
 
   constructor(
-    private todoService: TodoService, 
-    private authService: AuthService,
-    private router: Router, 
+    private todoService: TodoService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.userId = this.authService.USER$.value.userId;
+    this.activatedRoute.params.subscribe(
+      url => {
+        this.userId = url.userId;
+      }
+    )
     this.todo = new Todo;
   }
 
-  onCreate(){
+  onCreate() {
     this.todoService.createTodo(this.userId, this.todo).subscribe(res => {
       this.toastr.success(this.todo.name + " created.")
       this.router.navigate([`/users/${this.userId}/todos`]);

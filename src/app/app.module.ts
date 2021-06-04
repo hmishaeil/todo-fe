@@ -33,6 +33,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { AddUserComponent } from './components/add-user/add-user.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown'
 import { CookieService } from 'ngx-cookie-service';
+import { UserIdleModule } from 'angular-user-idle';
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,6 +74,7 @@ import { CookieService } from 'ngx-cookie-service';
       }
     ),
     BsDropdownModule.forRoot(),
+    // UserIdleModule.forRoot({idle: 600, timeout: 300, ping: 120}), TODO: AutoLogout Feature (To be completed)
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [

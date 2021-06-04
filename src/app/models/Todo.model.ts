@@ -5,5 +5,6 @@ export class Todo {
         public description: string = null,
         public done: boolean = false,
         public targetDate: Date = null,
+        public byAdmin = false,
     ) { }
 }

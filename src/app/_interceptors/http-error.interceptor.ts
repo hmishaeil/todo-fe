@@ -9,11 +9,15 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { catchError } from 'rxjs/operators';
+import { UtilService } from '../_services/util.service';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
 
-  constructor(private toastr: ToastrService) { }
+  constructor(
+    private toastr: ToastrService,
+    private utilService: UtilService
+    ) { }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request)
@@ -43,7 +47,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                 this.toastr.error(errorMsg);
                 break;
               case 403:
-                this.toastr.error("Permission Denied.")
+                // this.toastr.error("Permission Denied.")
+                this.utilService.showPermissionDeniedAlert()
                 break;
               case 404:
                 this.toastr.error("Invalid resource requested.")

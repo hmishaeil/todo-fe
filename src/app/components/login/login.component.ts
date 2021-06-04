@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UserIdleService } from 'angular-user-idle';
 import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
 import { LoginRequest } from 'src/app/_requests/login.request';
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     private activeRoute: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
-    private cookieService: CookieService) { }
+    private cookieService: CookieService,
+    private userIdleService: UserIdleService) { }
 
   username: string;
   password: string;
@@ -30,6 +32,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   rememberMe: boolean = this.cookieService.check('todo_app_username');
 
   ngOnInit(): void {
+
+    // TODO: Auto Logout Feature
+    // this.userIdleService.startWatching();
+    // this.userIdleService.onTimerStart().subscribe(count => console.log(count))
+    // this.userIdleService.onTimeout().subscribe(() => console.log('time is up!'));
 
     this.sub = this.activeRoute.queryParams
       .subscribe(params => {

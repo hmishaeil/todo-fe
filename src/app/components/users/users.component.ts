@@ -48,8 +48,9 @@ export class UsersComponent implements OnInit {
     this.router.navigate([`/users/add`])
   }
 
-  onUserEdit(id: number) {
-    this.router.navigate([`/users/${id}/edit`])
+  onUserEdit(id: string) {
+    console.log(`/users/${id}/edit`)
+    this.router.navigate([`users/${id}/edit`])
   }
 
   onUserSearch() {

@@ -16,6 +16,6 @@ export class EditUserResolver implements Resolve<User> {
   constructor(private userService: UserService) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<User> {
-    return this.userService.getUser(route.params.id);
+    return this.userService.getUser(route.params['userId']);
   }
 }

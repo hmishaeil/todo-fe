@@ -27,13 +27,12 @@ const routes: Routes = [
   { path: 'verify-email/:token', component: VerifyEmailComponent },
   { path: 'request-reset-password', component: RequestRestPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
-  { path: 'todos', component: TodosComponent, canActivate: [AuthGuard] },
   {
-    path: 'users', 
-    canActivate: [AuthGuard], 
+    path: 'users',
+    canActivate: [AuthGuard],
     children: [
       {
-        path: '', 
+        path: '',
         component: UsersComponent,
         canActivate: [PermissionGuard],
         data: {
@@ -42,14 +41,15 @@ const routes: Routes = [
       },
       {
         path: ':userId/edit',
-        component: EditUserComponent, 
+        component: EditUserComponent,
         resolve: { user: EditUserResolver },
         canActivate: [PermissionGuard],
         data: {
           role: 'ROLE_ADMIN'
         },
       },
-      { path: 'add', 
+      {
+        path: 'add',
         component: AddUserComponent,
         canActivate: [PermissionGuard],
         data: {
@@ -57,7 +57,7 @@ const routes: Routes = [
         },
       },
       {
-        path: ':userId/todos', 
+        path: ':userId/todos',
         component: TodosComponent,
       },
       {
@@ -65,8 +65,9 @@ const routes: Routes = [
         component: EditTodoComponent,
         resolve: { todo: EditTodoResolver }
       },
-      { path: ':userId/todos/create', 
-        component: CreateTodoComponent 
+      {
+        path: ':userId/todos/create',
+        component: CreateTodoComponent
       },
     ]
   },

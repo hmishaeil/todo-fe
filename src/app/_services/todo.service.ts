@@ -14,7 +14,7 @@ export class TodoService {
 
   getTodos(userId: number, searchTerm: string = null) {
 
-    let myUrl = this.url(userId);    
+    let myUrl = this.url(userId);
     if (searchTerm !== null) {
       myUrl += `?searchTerm=${searchTerm}`
     }

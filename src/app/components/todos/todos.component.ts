@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TodoService } from '../../_services/todo.service';
 import { Todo } from 'src/app/models/Todo.model';
@@ -27,6 +27,8 @@ export class TodosComponent implements OnInit {
   userId: number = 0;
   todoId: number = 0;
 
+  loggedInUserId: number;
+
   constructor(
     private todoService: TodoService,
     private authService: AuthService,
@@ -35,6 +37,8 @@ export class TodosComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
+
+    this.loggedInUserId = +this.authService.USER$.value.userId;
 
     this.activatedRoute.params.subscribe(
       url => {
@@ -49,9 +53,6 @@ export class TodosComponent implements OnInit {
   private getTodos(userId: number) {
     this.todoService.getTodos(userId).subscribe(todos => {
       this.todos = todos;
-    }, error => {
-      console.error(error)
-      this.errMsg = "Error happened.";
     }).add(() => this.loading = false);
   }
 
@@ -60,7 +61,7 @@ export class TodosComponent implements OnInit {
   }
 
   onEditTodo(todoId) {
-    this.router.navigate([`/users/${this.userId}/todos/${todoId}/edit`])
+    this.router.navigate([`users/${this.userId}/todos/${todoId}/edit`])
   }
 
   onDeleteTodo(id: number) {
@@ -87,7 +88,6 @@ export class TodosComponent implements OnInit {
         })
       }
     })
-
   }
 
   onSearchTodo() {
